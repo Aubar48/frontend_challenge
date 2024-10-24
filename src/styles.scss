@@ -1,4 +1,8 @@
-
+/*.wrapper{
+  display: grid;
+  min-height: 100dvh;
+  grid-template-rows: auto auto 1fr auto;
+}*/
 /* Estilos globales para el cuerpo de la página */
 body {
     font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; /* Fuentes utilizadas en el cuerpo de la página */

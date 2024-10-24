@@ -29,6 +29,7 @@ header {
     flex-grow: 2; /* Permitir que el menú crezca para llenar el espacio disponible */
     color: #343f44; /* Color del texto del menú */
     margin-left: 70px; /* Espacio a la izquierda del menú */
+    
   }
   
   /* Estilos para la lista dentro del menú */
@@ -36,6 +37,7 @@ header {
     list-style-type: none; /* Quitar los puntos de la lista */
     display: flex; /* Usar flexbox para alinear los elementos de la lista horizontalmente */
     align-items: center; /* Alinear verticalmente los elementos de la lista */
+    
   }
   
   /* Estilos para cada elemento de la lista en el menú */

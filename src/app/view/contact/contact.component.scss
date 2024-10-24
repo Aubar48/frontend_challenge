@@ -1,0 +1,58 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to bottom left, white, #f1f5f9, #059669);
+    color: #333;
+  }
+  
+  .background {
+    min-height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    width: 100%;
+    max-width: 800px;
+    padding: 2rem;
+  }
+  
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2);
+    overflow: hidden;
+  }
+  
+  .card-header {
+    background-color: #059669;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .card-body {
+    padding: 2rem;
+  }
+  
+  .profile-photo {
+    width: 150px; /* Ajusta el tamaño según tus necesidades */
+    border-radius: 50%; /* Hace la imagen circular */
+    margin-bottom: 1rem;
+  }
+  
+  h2, h3, h4 {
+    margin: 1rem 0;
+  }
+  
+  ul, ol {
+    margin: 1rem 0;
+    padding-left: 20px;
+  }
+  
