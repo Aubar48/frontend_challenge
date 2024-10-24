@@ -54,7 +54,7 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 
 1. **Clona el repositorio**:
 
--   git clone 
+-   git clone https://github.com/Aubar48/frontend_challenge
 -   git clone https://github.com/Aubar48/backendXAcademy
 -   cd backendXAcademy
 
