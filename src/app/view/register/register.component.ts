@@ -18,7 +18,7 @@ export class RegisterComponent {
   constructor(private fb: FormBuilder, private registerService: RegisterService) {
     // Definir el formulario reactivo y sus validaciones
     this.registerForm = this.fb.group({
-      nombre: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }

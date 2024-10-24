@@ -18,7 +18,7 @@ export class LoginComponent {
   constructor(private fb: FormBuilder, private loginService: LoginService) {
     // Definir el formulario reactivo y sus validaciones
     this.loginForm = this.fb.group({
-      nombre: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }

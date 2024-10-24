@@ -5,10 +5,10 @@
         <h1 class="form-title">Iniciar Sesión</h1>
         <form [formGroup]="loginForm" (ngSubmit)="manejarEnvio()" class="form">
           <div class="form-group">
-            <label for="nombre">Nombre:</label>
-            <input id="nombre" formControlName="nombre" />
-            <div *ngIf="loginForm.get('nombre')?.invalid && loginForm.get('nombre')?.touched">
-              <small class="text-red" *ngIf="loginForm.get('nombre')?.errors?.['required']">El nombre es obligatorio.</small>
+            <label for="username">Nombre:</label>
+            <input id="username" formControlName="username" />
+            <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+              <small class="text-red" *ngIf="loginForm.get('username')?.errors?.['required']">El nombre es obligatorio.</small>
             </div>
           </div>
 
