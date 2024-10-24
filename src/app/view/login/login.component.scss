@@ -1,15 +1,3 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  background: linear-gradient(to bottom left, white, #f1f5f9, #059669);
-  color: #333;
-}
-
 .background {
   min-height: 85vh;
   display: flex;
@@ -40,7 +28,6 @@ body {
 
 .form-content {
   width: 100%;
-  background-color: #fff;
   padding: 2rem;
 }
 
