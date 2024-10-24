@@ -1,1 +1,131 @@
-/* You can add global styles to this file, and also import other style files */
+
+/* Estilos globales para el cuerpo de la página */
+body {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif; /* Fuentes utilizadas en el cuerpo de la página */
+    background-color: #bddbf8; /* Color de fondo predeterminado para el cuerpo */
+    box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho y alto del elemento */
+  }
+  a{
+    text-decoration: none;
+  }
+  a:visited {
+    color: #343f44;/* Color para enlaces visitados */
+    
+  }
+  body.noche a:visited {
+    color: #f5f5f5; /* Color para enlaces visitados modo noche */
+  }
+  /* Para cambiar el color a un color específico después de redirigir */
+  a.clicked {
+      color: transparent; /* Cambia a transparente */
+      pointer-events: none; /* Desactiva la interacción con el enlace */
+  }
+  a.active{
+    color: #2e86fd; /* Cambia a transparente */
+    pointer-events: none; /* Desactiva la interacción con el enlace */
+    filter: drop-shadow(0px 5px 5px #343f44); /* Aplicar sombra al header */
+  
+  }
+  body.noche a.active{
+    color:#9e23ff; /* Cambia a transparente */
+    pointer-events: none; /* Desactiva la interacción con el enlace */
+    filter: drop-shadow(0px 5px 5px #f5f5f5); /* Aplicar sombra al header modo noche */
+  
+  }
+  /* Estilos para el modo nocturno (dark mode) */
+  body.noche {
+    background-color: #2e2e2e; /* Color de fondo oscuro para el modo nocturno */
+    color: #f5f5f5; /* Color de texto claro para el modo nocturno */
+  }
+  
+  /* Estilos para el logo en modo nocturno */
+  body.noche .logo {
+    color: #f5f5f5; /* Color del texto del logo en modo nocturno */
+  }
+  
+  body.noche .logo i {
+    color: #9e23ff !important; /* Color del ícono del logo en modo nocturno, con prioridad sobre otros estilos */
+  }
+  
+  /* Estilos para el menú en modo nocturno */
+  body.noche .menu {
+    color: #f5f5f5; /* Color del texto del menú en modo nocturno */
+  }
+  
+  body.noche .menu ul li {
+    color: #f5f5f5; /* Color del texto de los elementos del menú en modo nocturno */
+  }
+  
+  
+  /* Estilos para el menú móvil en modo nocturno */
+  body.noche .mobile-menu {
+    background-color: #2e2e2e; /* Color de fondo oscuro para el modo nocturno */
+  }
+  body.noche .hamburger-menu {
+    color: #f5f5f5; /* Color del icono del menú hamburguesa */
+  }
+  body.noche .mobile-menu ul li {
+    color: #f5f5f5; /* Color del texto de los elementos del menú móvil en modo nocturno */
+  }
+  /* Estilos para los botones de contorno en modo nocturno */
+  body.noche .outline-button {
+    border-color: #9e23ff; /* Color del borde del botón en modo nocturno */
+    color: #9e23ff; /* Color del texto del botón en modo nocturno */
+  }
+  
+  /* Estilos para los títulos previos en modo nocturno */
+  body.noche .pre-title {
+    color: #cccccc; /* Color del texto de los títulos previos en modo nocturno */
+  }
+  
+  /* Estilos para el título principal de la presentación en modo nocturno */
+  body.noche .presentation h1 {
+    color: #f5f5f5 !important; /* Color del texto del título principal de la presentación, con prioridad sobre otros estilos */
+    border-right-color: #9e23ff; /* Color del borde derecho del título, creando un efecto de cursor */
+  }
+  
+  /* Estilos para los títulos posteriores en modo nocturno */
+  body.noche .post-title {
+    color: #cccccc; /* Color del texto de los títulos posteriores en modo nocturno */
+  }
+  
+  /* Estilos para los botones del formulario de suscripción en modo nocturno */
+  body.noche .subscribe-form button {
+    background-color: #2e86fd !important; /* Color de fondo del botón en modo nocturno */
+  }
+  
+  /* Estilos para los párrafos secundarios en modo nocturno */
+  body.noche .secondary-p {
+    color: #cccccc; /* Color del texto de los párrafos secundarios en modo nocturno */
+  }
+  
+  /* Estilos para las características en modo nocturno */
+  body.noche .feature {
+    background-color: #333333; /* Color de fondo de las características en modo nocturno */
+  }
+  
+  body.noche .feature-button {
+    border-color: #9e23ff; /* Color del borde del botón de características en modo nocturno */
+    color:#9e23ff; /* Color del texto del botón de características en modo nocturno */
+  }
+  
+  /* Estilos para los títulos y párrafos dentro de las características en modo nocturno */
+  body.noche .feature h4 {
+    color: #f5f5f5; /* Color del texto de los títulos de características en modo nocturno */
+  }
+  
+  body.noche .feature p {
+    color: #cccccc; /* Color del texto de los párrafos de características en modo nocturno */
+  }
+  
+  body.noche .feature i {
+    color: #9e23ff !important; /* Color de los íconos de características en modo nocturno, con prioridad sobre otros estilos */
+  }
+  
+  /* Estilos para el pie de página en modo nocturno */
+  body.noche footer {
+    color: #f5f5f5; /* Color del texto del pie de página en modo nocturno */
+  }
+  
+  
+  

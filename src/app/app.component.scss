@@ -1,0 +1,22 @@
+/* Contenedor principal con un ancho fijo y centrado en la página */
+.wrapper {
+    width: 1400px; /* Ancho fijo del contenedor */
+    margin-left: auto; /* Centrando el contenedor horizontalmente */
+    margin-right: auto; /* Centrando el contenedor horizontalmente */
+  }
+  
+  /* Estilos específicos para pantallas pequeñas (móviles) */
+  @media only screen and (max-width: 600px) {
+    .wrapper {
+      width: 100%; /* Ajusta el ancho del contenedor al 100% del ancho de la pantalla */
+      padding: 0px; /* Elimina el padding para pantallas pequeñas */
+    }
+  }
+  
+  /* Estilos específicos para pantallas medianas (tablets) */
+  @media only screen and (min-width: 600px) and (max-width: 992px) {
+    .wrapper {
+      width: 100%; /* Ajusta el ancho del contenedor al 100% del ancho de la pantalla */
+    }
+  }
+  

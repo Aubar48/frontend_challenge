@@ -1,0 +1,20 @@
+<!-- Encabezado principal del sitio web -->
+<header>
+    <!-- Contenedor para el logotipo y el nombre -->
+    <div class="logo">
+      <!-- Icono del logotipo usando Material Icons -->
+      <i class="material-icons">health_and_safety</i>
+      <!-- Nombre del sitio o logotipo -->
+      Shades
+    </div>
+    
+    <app-menu-elemento [menuItems]="menuItems" ></app-menu-elemento>
+    
+    <!-- Botón para iniciar -->
+    <button type="button" class="outline-button">Get started</button>
+    
+    <!-- Botón para abrir el menú hamburguesa en vista móvil -->
+    <button class="hamburger-menu" (click)="toggleMenu()">☰</button> 
+  </header>
+  
+ <app-burger-menu-elemento [burgerMenuItems]="burgerMenuItems" ></app-burger-menu-elemento>

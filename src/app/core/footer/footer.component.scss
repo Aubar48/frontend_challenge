@@ -1,0 +1,15 @@
+/* Estilo general para el footer */
+footer {
+    color: black; /* Color del texto del footer */
+    text-align: center; /* Centrar el texto en el footer */
+    padding: 0; /* Sin espaciado interno (padding) */
+    margin-top: 60px; /* Espacio superior del footer desde el contenido anterior */
+  }
+  
+  /* Estilo para los párrafos dentro del footer */
+  footer p {
+    margin: 0 0; /* Sin margen superior ni inferior (se elimina cualquier margen por defecto) */
+    font-size: 18px; /* Tamaño de la fuente del texto en el footer */
+    font-weight: 500; /* Peso de fuente medio (semi-negrita) */
+  }
+  
