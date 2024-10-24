@@ -50,11 +50,12 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 
 ## Instalación
 
-### Backend
+### Backend && Frontend
 
 1. **Clona el repositorio**:
 
 -   git clone https://github.com/Aubar48/frontend_challenge
+-   cd frontend_challenge
 -   git clone https://github.com/Aubar48/backendXAcademy
 -   cd backendXAcademy
 
@@ -68,7 +69,7 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 
 4. **Inicia el Servidor**: 
 
-- npm start
+- npm start in NodeJs && ng serve in Angular
 
 5. **EndPoints Get, Post, Put, Deleted**:
 - IMPORTANTE CREAR USUARIO. USAR TOKEN AL LOGEARSE PARA USAR LAS DEMAS FUNCIONALIDADES 
