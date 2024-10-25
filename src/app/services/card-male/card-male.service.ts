@@ -12,21 +12,14 @@ export class CardMaleService {
 
   constructor(private httpClient: HttpClient) {}
 
-  // Obtener todos los jugadores, transformando la respuesta para mayor flexibilidad
-  getCardMale(): Observable<CardMale[]> {
-    return this.httpClient.get<{ players: any }>(this.apiUrl).pipe(
-      // Transforma los datos antes de entregarlos al componente
+  // Obtener todos los jugadores, ahora con soporte para paginación
+  getCardMale(page: number = 1, limit: number = 10): Observable<CardMale[]> {
+    // Ajusta la URL para incluir parámetros de paginación
+    const params = `?page=${page}&limit=${limit}`;
+    return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`).pipe(
       map(response => {
-        // Si solo necesitas los valores de los jugadores
+        // Devuelve solo los valores de los jugadores
         return Object.values(response.players);
-        
-        // Si necesitas las claves junto con los valores, usa esta versión:
-        /*
-        return Object.entries(response.players).map(([key, player]) => ({
-          key, // Mantén la clave si es importante
-          ...player
-        }));
-        */
       })
     );
   }

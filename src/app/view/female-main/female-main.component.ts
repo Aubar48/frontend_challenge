@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { CardFemaleService } from '../../services/card-female/card-female.service';
 import { CardFemale } from '../../models/card-female.model';
+import { Subscription } from 'rxjs';
+import { CardFemaleService } from '../../services/card-female/card-female.service';
+import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-female-main',
@@ -12,20 +13,44 @@ import { CardFemale } from '../../models/card-female.model';
   styleUrls: ['./female-main.component.scss']
 })
 export class FemaleMainComponent implements OnInit, OnDestroy {
-  cardFemale?: CardFemale[]; // Inicializa como un array vacío
+  cardFemale: CardFemale[] = []; // Lista de jugadoras
   subscription = new Subscription();
 
-  constructor(private cardFemaleService: CardFemaleService) {}
+  // Variables para paginación
+  currentPage: number = 1;
+  itemsPerPage: number = 10; // Puedes ajustar el número de elementos por página
+  totalItems: number = 0; // Total de elementos que se actualizará al obtener la respuesta
+  totalPages: number = 0;
+
+  constructor(
+    private cardFemaleService: CardFemaleService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    // Suscripción al servicio para obtener las tarjetas de jugadores masculinos
-    this.subscription.add(this.cardFemaleService.getCardFemale().subscribe({
+    // Escuchar cambios en los parámetros de la URL
+    this.subscription.add(
+      this.route.params.subscribe(params => {
+        const page = params['page'] ? parseInt(params['page'], 10) : 1;
+        this.currentPage = isNaN(page) ? 1 : page; // Asegurarse de que la página sea válida
+        this.loadPlayers(this.currentPage);
+      })
+    );
+  }
+
+  // Método para cargar jugadoras en función de la página
+  loadPlayers(page: number) {
+    this.subscription.add(this.cardFemaleService.getCardFemale(page, this.itemsPerPage).subscribe({
       next: res => {
         console.log('Respuesta del servicio:', res);
 
-        // Verifica si la respuesta es un array
         if (Array.isArray(res)) {
-          this.cardFemale = res; // Asigna directamente el array a cardMale
+          this.cardFemale = res;
+
+          // Aquí actualiza el total de ítems si tu API proporciona esa información.
+          this.totalItems = 100; // Coloca el número total de jugadoras. Actualiza según el backend.
+          this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
         } else {
           console.warn('La respuesta no es un array:', res);
         }
@@ -34,6 +59,15 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
         console.warn('Error al obtener las tarjetas:', error);
       }
     }));
+  }
+
+  // Cambiar de página y actualizar la URL
+  changePage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.router.navigate(['/homeFemale/page', this.currentPage]); // Actualiza la URL
+      this.loadPlayers(this.currentPage);
+    }
   }
 
   ngOnDestroy(): void {

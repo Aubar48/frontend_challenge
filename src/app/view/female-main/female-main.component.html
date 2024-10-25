@@ -1,28 +1,56 @@
 <div class="container">
-    <div class="card" *ngFor="let card of cardFemale">
-      <div class="card__image-container">
-        <img class="card__image" [src]="card.player_face_url" alt="{{ card.long_name || 'Nombre no disponible' }}">
-      </div>
-  
-      <svg class="card__svg" viewBox="0 0 800 500">
-        <path d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500" stroke="transparent" fill="#333"></path>
-        <path class="card__line" d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400" stroke="pink" stroke-width="3" fill="transparent"></path>
-      </svg>
-  
-      <div class="card__content">
-        <h1 class="card__title">{{ card.long_name || 'Nombre no disponible' }}</h1>
-        <p>Club: {{ card.club_name || 'No disponible' }}</p>
-        <p>Nacionalidad: {{ card.nationality_name || 'No disponible' }}</p>
-        <p>Posición: {{ card.player_positions || 'No disponible' }}</p>
-        <p>Overall: {{ card.overall !== undefined ? card.overall : 'No disponible' }}</p>
-        <p>Edad: {{ card.age !== undefined ? card.age : 'No disponible' }}</p>
-      </div>
-      
-      <!-- Botón que pasa el ID correcto al método deleteFeature -->
-        <button >Borrar</button>
-        <button >Editar</button>
-  
-    
+  <!-- Lista de tarjetas de jugadoras -->
+  <div class="card" *ngFor="let card of cardFemale">
+    <div class="card__image-container">
+      <img
+        class="card__image"
+        [src]="card.player_face_url"
+        alt="{{ card.long_name || 'Nombre no disponible' }}"
+      >
     </div>
+
+    <svg class="card__svg" viewBox="0 0 800 500">
+      <path
+        d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
+        stroke="transparent"
+        fill="#333"
+      ></path>
+      <path
+        class="card__line"
+        d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
+        stroke="pink"
+        stroke-width="3"
+        fill="transparent"
+      ></path>
+    </svg>
+
+    <div class="card__content">
+      <h1 class="card__title">{{ card.long_name || 'Nombre no disponible' }}</h1>
+      <p>Club: {{ card.club_name || 'No disponible' }}</p>
+      <p>Nacionalidad: {{ card.nationality_name || 'No disponible' }}</p>
+      <p>Posición: {{ card.player_positions || 'No disponible' }}</p>
+      <p>Overall: {{ card.overall !== undefined ? card.overall : 'No disponible' }}</p>
+      <p>Edad: {{ card.age !== undefined ? card.age : 'No disponible' }}</p>
+    </div>
+
+    <!-- Botones para editar y borrar -->
+    <button>Borrar</button>
+    <button>Editar</button>
   </div>
-  
+</div>
+
+<!-- Controles de paginación -->
+<div class="pagination-controls">
+  <!-- Botón de página anterior -->
+  <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+    Anterior
+  </button>
+
+  <!-- Información de la página actual y total -->
+  <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+  <!-- Botón de página siguiente -->
+  <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">
+    Siguiente
+  </button>
+</div>

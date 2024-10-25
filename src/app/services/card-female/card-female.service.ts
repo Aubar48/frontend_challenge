@@ -13,8 +13,10 @@ export class CardFemaleService {
   constructor(private httpClient: HttpClient) {}
 
   // Obtener todos los jugadores, transformando la respuesta para mayor flexibilidad
-  getCardFemale(): Observable<CardFemale[]> {
-    return this.httpClient.get<{ players: any }>(this.apiUrl).pipe(
+  getCardFemale(page: number = 1, limit: number = 10): Observable<CardFemale[]> {
+    const params = `?page=${page}&limit=${limit}`;
+
+    return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`).pipe(
       // Transforma los datos antes de entregarlos al componente
       map(response => {
         // Si solo necesitas los valores de los jugadores
