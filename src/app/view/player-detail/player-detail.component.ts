@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PlayerCardModel } from '../../models/player-card.model';
 import { CardFemaleService } from '../../services/card-female/card-female.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { CardMaleService } from '../../services/card-male/card-male.service';
 
 @Component({
@@ -14,51 +14,80 @@ import { CardMaleService } from '../../services/card-male/card-male.service';
 })
 export class PlayerDetailComponent implements OnInit {
   @Input() playerCard?: PlayerCardModel;
-
+  
   @Output() deletePlayer = new EventEmitter<number>();
   @Output() editPlayer = new EventEmitter<PlayerCardModel>();
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private cardFemaleService: CardFemaleService,
-    private cardMaleService: CardMaleService
+    private cardMaleService: CardMaleService,
+    private location: Location
   ) {}
 
   ngOnInit() {
-    // Obtener el tipo de jugador (femenino o masculino) de la ruta
+    this.onLoadId();
+  }
+
+  private onLoadId() {
     const id = this.route.snapshot.paramMap.get('id');
-    const path = this.route.snapshot.url[0]?.path; // Aquí obtenemos la ruta actual
+    const path = this.route.snapshot.url[0]?.path;
 
     if (id) {
-      const idNumber = Number(id); // Convertir el ID a número
-
-      // Verificar el path para determinar si es femenino o masculino
+      const idNumber = Number(id);
       if (path === 'female') {
-        this.cardFemaleService.getCardFemaleById(idNumber).subscribe(female => {
-          this.playerCard = female; // Asignar el jugador femenino a la variable
+        this.cardFemaleService.getCardFemaleById(idNumber).subscribe({
+          next: (female) => this.playerCard = female,
+          error: (err) => console.error('Error al cargar tarjeta femenina:', err)
         });
       } else if (path === 'players') {
-        this.cardMaleService.getCardMaleById(idNumber).subscribe(player => {
-          this.playerCard = player; // Asignar el jugador masculino a la variable
+        this.cardMaleService.getCardMaleById(idNumber).subscribe({
+          next: (player) => this.playerCard = player,
+          error: (err) => console.error('Error al cargar tarjeta masculina:', err)
         });
       }
+    } else {
+      console.warn('ID de jugador no encontrado');
     }
   }
 
   onDelete() {
     if (this.playerCard) {
-      this.deletePlayer.emit(this.playerCard.id);
+      const path = this.route.snapshot.url[0]?.path;
+      if (path === 'female') {
+        this.deleteFemaleCard(this.playerCard.id);
+      } else if (path === 'players') {
+        this.deleteMaleCard(this.playerCard.id);
+      }
+      this.goBack();
     } else {
-      console.warn('playerCard is undefined during delete');
+      console.warn('playerCard está indefinido durante el intento de eliminación');
     }
   }
 
+  private deleteFemaleCard(id: number) {
+    this.cardFemaleService.deleteCardFemale(id).subscribe({
+      next: () => console.log('Tarjeta femenina eliminada con éxito'),
+      error: (err) => console.error('Error eliminando tarjeta femenina:', err)
+    });
+  }
+
+  private deleteMaleCard(id: number) {
+    this.cardMaleService.deleteCardMale(id).subscribe({
+      next: () => console.log('Tarjeta masculina eliminada con éxito'),
+      error: (err) => console.error('Error eliminando tarjeta masculina:', err)
+    });
+  }
+
   onEdit() {
-    this.editPlayer.emit(this.playerCard);
+    if (this.playerCard) {
+      this.editPlayer.emit(this.playerCard);
+    } else {
+      console.warn('playerCard está indefinido durante el intento de edición');
+    }
   }
 
   goBack() {
-    this.router.navigate(['..']); // Vuelve a la página anterior
+    this.location.back();
   }
 }
