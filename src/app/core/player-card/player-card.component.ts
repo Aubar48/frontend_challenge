@@ -33,7 +33,6 @@ export class PlayerCardComponent {
   onViewMore() {
     if (this.playerCard) {
       this.viewMore.emit(this.playerCard.id);
-      this.router.navigate(['/female', this.playerCard.id]);
     } else {
       console.warn('playerCard is undefined during view more');
     }

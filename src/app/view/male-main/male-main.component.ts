@@ -112,4 +112,28 @@ export class MaleMainComponent implements OnInit, OnDestroy {
       this.loadPlayers(this.currentPage);
     }
   }
+
+  verMas(playerId: number): void {
+    this.router.navigate(['/players', playerId]); // Navega a una vista de detalles directamente
+  }
+
+  // Método para borrar jugadora
+  borrar(playerId: number): void {
+    this.cardMaleService.deleteCardMale(playerId).subscribe({
+      next: () => {
+        console.log(`Borrando jugador con ID: ${playerId}`);
+        this.loadPlayers(this.currentPage); // Recargar jugadores tras la eliminación
+      },
+      error: error => {
+        console.warn('Error al borrar el jugador:', error);
+      }
+    });
+  }
+
+  // Método para editar jugadora
+  editar(player: PlayerCardModel): void {
+    this.router.navigate(['/edit-player', player.id]); // Navega al formulario de edición
+  }
+
+
 }

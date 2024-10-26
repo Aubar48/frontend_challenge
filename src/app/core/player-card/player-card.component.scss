@@ -18,7 +18,7 @@ img {
   justify-content: space-between;
   align-items: center;
   transition: transform 0.3s ease;
-  height: 450px; /* Alto fijo */
+  height: 550px; /* Alto fijo */
   width: 250px; /* Ancho fijo */
 }
 
@@ -32,7 +32,7 @@ img {
 }
 
 .card__image {
-  height: 150px; /* Ajusta la altura de la imagen para que sea consistente */
+  height:160px; /* Ajusta la altura de la imagen para que sea consistente */
   width: 100%;
   object-fit: cover; /* Escala la imagen para llenar el espacio sin deformarse */
   opacity: 0;
@@ -51,16 +51,36 @@ img {
   flex: 1; /* Hace que el contenido ocupe el espacio restante */
   display: flex;
   flex-direction: column;
-  justify-content:center;
+  justify-content:end;
+  align-self: start;
   margin-top: -1rem;
   opacity: 0;
   animation: ContentFadeIn 0.8s 1.6s forwards;
+  gap: 5px;
+  width: 100%;
+
 }
 .card__button{
   display: flex;
-  flex-direction: row;
-  gap: 20px;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
 }
+.card__button button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  font-size: 0.9em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card__button button:hover {
+  background-color: #555;
+}
+
 .card__svg {
   position: absolute;
   left: 0;
@@ -108,7 +128,10 @@ img {
 
 /* Para móviles */
 @media only screen and (max-width: 600px) {
-  
+  .card__image {
+    height:200px;
+    
+  }
   .card {
     width: 100%;
     padding: 1rem;
@@ -118,7 +141,10 @@ img {
 
 /* Para tablets */
 @media only screen and (min-width: 600px) and (max-width: 992px) {
-  
+  .card__image {
+    height:200px;
+    
+  }
   .card {
     width: 100%;
     padding: 1.5rem;

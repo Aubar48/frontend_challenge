@@ -1,12 +1,17 @@
 <!-- Usar el componente de paginación -->
-<app-pagination
-  [currentPage]="currentPage"
-  [totalPages]="totalPages"
+<app-pagination 
+  [currentPage]="currentPage" 
+  [totalPages]="totalPages" 
   (pageChange)="changePage($event)">
 </app-pagination>
 
 <div class="container">
-  <!-- Lista de tarjetas de jugadores -->
-  <app-player-card *ngFor="let card of playerCardModel" [playerCard]="card"></app-player-card>
+  <!-- Lista de tarjetas de jugadoras -->
+  <app-player-card 
+    *ngFor="let card of playerCardModel" 
+    [playerCard]="card"
+    (deletePlayer)="borrar(card.id)"
+    (editPlayer)="editar(card)" 
+    (viewMore)="verMas(card.id)">
+  </app-player-card>
 </div>
-

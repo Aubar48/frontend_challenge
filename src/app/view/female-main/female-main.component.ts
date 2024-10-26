@@ -33,20 +33,19 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscribeToRouteParams();
   }
-
-  private subscribeToRouteParams() {
-    this.subscription.add(
-      this.route.params.subscribe(params => {
-        this.currentPage = this.getCurrentPage(params);
-        this.loadPlayers(this.currentPage);
-      })
-    );
-  }
-
-  private getCurrentPage(params: any): number {
-    const page = params['page'] ? parseInt(params['page'], 10) : 1;
-    return isNaN(page) ? 1 : page; // Asegurarse de que la página sea válida
-  }
+/**
+   * Método para suscribirse a los parámetros de la URL.
+   * Actualiza la página actual y carga los jugadores.
+   */
+private subscribeToRouteParams(): void {
+  this.subscription.add(
+    this.route.params.subscribe(params => {
+      const page = params['page'] ? parseInt(params['page'], 10) : 1;
+      this.currentPage = isNaN(page) ? 1 : page; // Asegurarse de que la página sea válida
+      this.loadPlayers(this.currentPage);
+    })
+  );
+}
 
   // Método para cargar jugadoras en función de la página
   loadPlayers(page: number) {
@@ -57,9 +56,7 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
 
           if (Array.isArray(res)) {
             this.playerCardModel = res;
-
-            // Actualiza el total de ítems si tu API proporciona esa información.
-            this.totalItems = res.length; // Suponiendo que la respuesta incluye el total.
+            this.totalItems = 100; // Coloca el número total de jugadores. Actualiza según el backend.
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
           } else {
             console.warn('La respuesta no es un array:', res);
