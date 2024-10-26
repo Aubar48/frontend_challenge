@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {PlayerCardModel } from '../../models/player-card.model';
 
@@ -11,4 +11,32 @@ import {PlayerCardModel } from '../../models/player-card.model';
 })
 export class PlayerCardComponent {
   @Input() playerCard?: PlayerCardModel; // Individual player card
+
+  @Output() deletePlayer = new EventEmitter<number>(); // Emite el ID para borrar
+  @Output() editPlayer = new EventEmitter<PlayerCardModel>(); // Emite el modelo para editar
+  @Output() viewMore = new EventEmitter<number>(); // Emite el ID para ver más
+  router: any;
+
+  onDelete() {
+    if (this.playerCard) {
+      this.deletePlayer.emit(this.playerCard.id);
+    } else {
+      console.warn('playerCard is undefined during delete');
+    }
+  }
+  
+
+  onEdit() {
+    this.editPlayer.emit(this.playerCard);
+  }
+
+  onViewMore() {
+    if (this.playerCard) {
+      this.viewMore.emit(this.playerCard.id);
+      this.router.navigate(['/female', this.playerCard.id]);
+    } else {
+      console.warn('playerCard is undefined during view more');
+    }
+  }
+  
 }

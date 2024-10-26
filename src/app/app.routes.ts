@@ -36,7 +36,11 @@ export const routes: Routes = [ // Rutas de la aplicación.
     path: 'contact',
     loadComponent: () => import('./view/contact/contact.component').then(m => m.ContactComponent),
   },
-  
+   // Nueva ruta para ver más detalles del jugador femenino
+   {
+    path: 'female/:id',  // Ruta para ver más detalles del jugador
+    loadComponent: () => import('./view/player-detail/player-detail.component').then(m => m.PlayerDetailComponent), // Reemplaza 'path-to-your' con la ruta correcta
+  },
   // Ruta comodín que carga el NotFoundComponent si no hay coincidencias.
   { path: '**', component: NotFoundComponent },
 ];

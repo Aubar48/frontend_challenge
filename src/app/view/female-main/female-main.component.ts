@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {PlayerCardModel } from '../../models/player-card.model';
+import { PlayerCardModel } from '../../models/player-card.model';
 import { Subscription } from 'rxjs';
 import { CardFemaleService } from '../../services/card-female/card-female.service';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { PlayerCardComponent } from '../../core/player-card/player-card.componen
 @Component({
   selector: 'app-female-main',
   standalone: true,
-  imports: [CommonModule, PaginationComponent,PlayerCardComponent],
+  imports: [CommonModule, PaginationComponent, PlayerCardComponent],
   templateUrl: './female-main.component.html',
   styleUrls: ['./female-main.component.scss']
 })
@@ -20,8 +20,8 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
 
   // Variables para paginación
   currentPage: number = 1;
-  itemsPerPage: number = 10; // Puedes ajustar el número de elementos por página
-  totalItems: number = 0; // Total de elementos que se actualizará al obtener la respuesta
+  itemsPerPage: number = 10; // Número de elementos por página
+  totalItems: number = 0; // Total de elementos
   totalPages: number = 0;
 
   constructor(
@@ -31,36 +31,45 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // Escuchar cambios en los parámetros de la URL
+    this.subscribeToRouteParams();
+  }
+
+  private subscribeToRouteParams() {
     this.subscription.add(
       this.route.params.subscribe(params => {
-        const page = params['page'] ? parseInt(params['page'], 10) : 1;
-        this.currentPage = isNaN(page) ? 1 : page; // Asegurarse de que la página sea válida
+        this.currentPage = this.getCurrentPage(params);
         this.loadPlayers(this.currentPage);
       })
     );
   }
 
+  private getCurrentPage(params: any): number {
+    const page = params['page'] ? parseInt(params['page'], 10) : 1;
+    return isNaN(page) ? 1 : page; // Asegurarse de que la página sea válida
+  }
+
   // Método para cargar jugadoras en función de la página
   loadPlayers(page: number) {
-    this.subscription.add(this.cardFemaleService.getCardFemale(page, this.itemsPerPage).subscribe({
-      next: res => {
-        console.log('Respuesta del servicio:', res);
+    this.subscription.add(
+      this.cardFemaleService.getCardFemale(page, this.itemsPerPage).subscribe({
+        next: res => {
+          console.log('Respuesta del servicio:', res);
 
-        if (Array.isArray(res)) {
-          this.playerCardModel = res;
+          if (Array.isArray(res)) {
+            this.playerCardModel = res;
 
-          // Aquí actualiza el total de ítems si tu API proporciona esa información.
-          this.totalItems = 100; // Coloca el número total de jugadoras. Actualiza según el backend.
-          this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-        } else {
-          console.warn('La respuesta no es un array:', res);
+            // Actualiza el total de ítems si tu API proporciona esa información.
+            this.totalItems = res.length; // Suponiendo que la respuesta incluye el total.
+            this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+          } else {
+            console.warn('La respuesta no es un array:', res);
+          }
+        },
+        error: error => {
+          console.warn('Error al obtener las tarjetas:', error);
         }
-      },
-      error: error => {
-        console.warn('Error al obtener las tarjetas:', error);
-      }
-    }));
+      })
+    );
   }
 
   // Cambiar de página y actualizar la URL
@@ -75,5 +84,27 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     // Desuscripción para evitar fugas de memoria
     this.subscription.unsubscribe();
+  }
+
+  verMas(femaleId: number): void {
+    this.router.navigate(['/female', femaleId]); // Navega a una vista de detalles directamente
+  }
+
+  // Método para borrar jugadora
+  borrar(femaleId: number): void {
+    this.cardFemaleService.deleteCardFemale(femaleId).subscribe({
+      next: () => {
+        console.log(`Borrando jugador con ID: ${femaleId}`);
+        this.loadPlayers(this.currentPage); // Recargar jugadores tras la eliminación
+      },
+      error: error => {
+        console.warn('Error al borrar el jugador:', error);
+      }
+    });
+  }
+
+  // Método para editar jugadora
+  editar(female: PlayerCardModel): void {
+    this.router.navigate(['/edit-female', female.id]); // Navega al formulario de edición
   }
 }

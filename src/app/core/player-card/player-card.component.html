@@ -29,12 +29,12 @@
     <p>Posición: {{ playerCard?.player_positions || 'No disponible' }}</p>
     <p>Overall: {{ playerCard?.overall !== undefined ? playerCard?.overall : 'No disponible' }}</p>
     <p>Edad: {{ playerCard?.age !== undefined ? playerCard?.age : 'No disponible' }}</p>
-  </div>
-
-  <div class="card__button">
-    <!-- Botones para editar y borrar -->
-  <button>Borrar</button>
-  <button>Editar</button>
-  </div>
   
+    <!-- Botones para editar, borrar, ver más -->
+    <div class="card__button">
+      <button (click)="onDelete()">Borrar</button>
+      <button (click)="onEdit()">Editar</button>
+      <button (click)="onViewMore()">Ver Más</button>
+    </div>
+  </div>
 </div>

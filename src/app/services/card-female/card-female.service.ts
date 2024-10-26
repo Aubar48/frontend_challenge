@@ -33,6 +33,11 @@ export class CardFemaleService {
     );
   }
 
+  // Obtener una jugadora por ID
+  getCardFemaleById(id: number): Observable<PlayerCardModel> {
+    return this.httpClient.get<PlayerCardModel>(`${this.apiUrl}/${id}`);
+  }
+
   // Agregar un nuevo jugador
   postCardFemale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
     return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel);
