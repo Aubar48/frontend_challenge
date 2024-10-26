@@ -88,7 +88,7 @@ export class MaleMainComponent implements OnInit, OnDestroy {
           // Verifica si la respuesta es un array
           if (Array.isArray(res)) {
             this.playerCardModel = res;
-            this.totalItems = 100; // Coloca el número total de jugadores. Actualiza según el backend.
+            this.totalItems = 161583; // Coloca el número total de jugadores. Actualiza según el backend.
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
           } else {
             console.warn('La respuesta no es un array:', res);

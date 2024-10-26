@@ -79,7 +79,10 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 - http://localhost:3000/players/:id
 - http://localhost:3000/players/download/csv
 - http://localhost:3000/players/convert/csv-to-excel
+- http://localhost:3000/players/?page=11&limit=10
 - http://localhost:3000/female
 - http://localhost:3000/female/:id
 - http://localhost:3000/female/download/csv
 - http://localhost:3000/female/convert/csv-to-excel
+- http://localhost:3000/female/?page=11&limit=10
+

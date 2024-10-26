@@ -56,7 +56,7 @@ private subscribeToRouteParams(): void {
 
           if (Array.isArray(res)) {
             this.playerCardModel = res;
-            this.totalItems = 100; // Coloca el número total de jugadores. Actualiza según el backend.
+            this.totalItems = 181360; // Coloca el número total de jugadores. Actualiza según el backend.
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
           } else {
             console.warn('La respuesta no es un array:', res);
