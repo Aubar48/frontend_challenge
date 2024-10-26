@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CardFemale } from '../../models/card-female.model';
+import { PlayerCardModel } from '../../models/player-card.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // Importa el operador `map`
 
@@ -13,7 +13,7 @@ export class CardFemaleService {
   constructor(private httpClient: HttpClient) {}
 
   // Obtener todos los jugadores, transformando la respuesta para mayor flexibilidad
-  getCardFemale(page: number = 1, limit: number = 10): Observable<CardFemale[]> {
+  getCardFemale(page: number = 1, limit: number = 10): Observable<PlayerCardModel[]> {
     const params = `?page=${page}&limit=${limit}`;
 
     return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`).pipe(
@@ -34,17 +34,17 @@ export class CardFemaleService {
   }
 
   // Agregar un nuevo jugador
-  postCardFemale(newCardFemale: CardFemale): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(this.apiUrl, newCardFemale);
+  postCardFemale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
+    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel);
   }
 
   // Actualizar un jugador existente
-  putCardFemale(updatedCardFemale: CardFemale): Observable<{ message: string }> {
-    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedCardFemale.id}`, updatedCardFemale);
+  putCardFemale(updatedPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
+    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel);
   }
 
   // Eliminar un jugador por ID
-  deleteCardFemale(cardFemaleId: number): Observable<{ message: string }> {
-    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${cardFemaleId}`);
+  deleteCardFemale(playerCardModelId: number): Observable<{ message: string }> {
+    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`);
   }
 }

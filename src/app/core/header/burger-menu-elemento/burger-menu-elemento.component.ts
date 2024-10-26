@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { BurgerItem } from '../../../models/burger-item.model';
+import { MenuItem } from '../../../models/menu-item.model';
 
 @Component({
   selector: 'app-burger-menu-elemento',
@@ -11,5 +11,5 @@ import { BurgerItem } from '../../../models/burger-item.model';
   styleUrl: './burger-menu-elemento.component.scss'
 })
 export class BurgerMenuElementoComponent {
-  @Input() burgerMenuItems?:BurgerItem[];
+  @Input() menuItems?:MenuItem[];
 }

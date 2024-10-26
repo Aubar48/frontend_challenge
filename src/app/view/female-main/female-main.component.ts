@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CardFemale } from '../../models/card-female.model';
+import {PlayerCardModel } from '../../models/player-card.model';
 import { Subscription } from 'rxjs';
 import { CardFemaleService } from '../../services/card-female/card-female.service';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./female-main.component.scss']
 })
 export class FemaleMainComponent implements OnInit, OnDestroy {
-  cardFemale: CardFemale[] = []; // Lista de jugadoras
+  playerCardModel?: PlayerCardModel[]; // Lista de jugadoras
   subscription = new Subscription();
 
   // Variables para paginación
@@ -46,7 +46,7 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
         console.log('Respuesta del servicio:', res);
 
         if (Array.isArray(res)) {
-          this.cardFemale = res;
+          this.playerCardModel = res;
 
           // Aquí actualiza el total de ítems si tu API proporciona esa información.
           this.totalItems = 100; // Coloca el número total de jugadoras. Actualiza según el backend.

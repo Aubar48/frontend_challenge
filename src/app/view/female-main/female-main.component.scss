@@ -1,61 +1,65 @@
-
+/* Estilos generales */
 img {
   max-width: 100%;
 }
 
 .container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap:wrap;
-  height: 100vh;
+  display: grid; /* Cambiado a Grid Layout */
+  gap: 20px; /* Espacio uniforme entre las tarjetas */
+  padding: 20px; /* Espacio interno en los bordes */
 }
 
 .card {
   position: relative;
   background: #333;
-  width: 250px;
-  height: 40vh;
   border-radius: 6px;
-  padding: 2rem;
+  padding: 1.5rem;
   color: #aaa;
-  box-shadow: 0 .25rem .25rem rgba(0,0,0,0.2),
-    0 0 1rem rgba(0,0,0,0.2);
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2),
+    0 0 1rem rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  
-  &__image-container {
-    margin: -2rem -2rem 1rem 0rem;
-  }
-  
-  &__line {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease; /* Efecto de transición */
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Efecto hover */
+}
+
+.card__image-container {
+  margin-bottom: 1rem;
+}
+
+.card__line {
   opacity: 0;
-  animation: LineFadeIn .8s .8s forwards ease-in;
-  }
+  animation: LineFadeIn 0.8s 0.8s forwards ease-in;
+}
 
-  &__image {
-    opacity: 0;
-    animation: ImageFadeIn .8s 1.4s forwards;
-  }
+.card__image {
+  opacity: 0;
+  animation: ImageFadeIn 0.8s 1.4s forwards;
+}
 
-  &__title {
-    color: white;
-    margin-top: 0;
-    font-weight: 800;
-    letter-spacing: 0.01em;
-    font-size: 1.2rem;
-  }
-  
-  &__content {
-    margin-top: -1rem;
-    opacity: 0;
-    animation: ContentFadeIn .8s 1.6s forwards;
-  }
-  
-  &__svg {
-    position: absolute;
-    left: 0;
-    top: 40px;
-  }
+.card__title {
+  color: white;
+  margin-top: 0;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+}
+
+.card__content {
+  margin-top: -1rem;
+  opacity: 0;
+  animation: ContentFadeIn 0.8s 1.6s forwards;
+}
+
+.card__svg {
+  position: absolute;
+  left: 0;
+  top: 40px;
 }
 
 @keyframes LineFadeIn {
@@ -70,12 +74,12 @@ img {
 }
 
 @keyframes ImageFadeIn {
-  0% { transform: translate(-.5rem, -.5rem) scale(1.05); opacity: 0; filter: blur(2px); }
+  0% { transform: translate(-0.5rem, -0.5rem) scale(1.05); opacity: 0; filter: blur(2px); }
   50% { opacity: 1; filter: blur(2px); }
   100% { transform: translateY(0) scale(1.0); opacity: 1; filter: blur(0); }
 }
 
-
+/* Controles de paginación */
 .pagination-controls {
   display: flex;
   justify-content: center;
@@ -93,3 +97,63 @@ img {
 .pagination-controls span {
   font-size: 18px;
 }
+
+/* Responsividad específica */
+
+/* Para móviles */
+@media only screen and (max-width: 600px) {
+  .container {
+    grid-template-columns: 1fr; /* Una tarjeta por fila en móviles */
+    height: auto;
+    gap: 15px; /* Espacio entre tarjetas en móviles */
+  }
+  
+  .card {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 15px;
+  }
+}
+
+/* Para tablets */
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  .container {
+    grid-template-columns: repeat(2, 1fr); /* Dos tarjetas por fila en tablets */
+    gap: 20px; /* Espacio uniforme */
+    height: auto;
+  }
+  
+  .card {
+    width: 100%;
+    padding: 1.5rem;
+  }
+}
+
+/* Para escritorio */
+@media only screen and (min-width: 992px) {
+  .container {
+    grid-template-columns: repeat(5, 1fr); /* 5 tarjetas por fila en escritorio */
+    grid-template-rows: repeat(2, auto); /* 2 filas de tarjetas */
+    gap: 20px;
+    height: auto;
+  }
+  
+  .card {
+    width: 100%;
+    margin-bottom: 0;
+    padding: 1.5rem;
+  }
+}
+
+/* Para resoluciones medias entre 992px y 1200px */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .container {
+    grid-template-columns: repeat(4, 1fr); /* Reducir a 4 tarjetas por fila */
+    gap: 15px; /* Reducir el espacio entre tarjetas si es necesario */
+  }
+  
+  .card {
+    padding: 1rem; /* Ajustar padding para tarjetas más pequeñas */
+  }
+}
+

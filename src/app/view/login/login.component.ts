@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login/login.service'; // Asegúrate de que la ruta es correcta
 import { CommonModule } from '@angular/common';
 import { Login } from '../../models/login.model';
+import { Router } from '@angular/router'; // Importa Router
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { Login } from '../../models/login.model';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private loginService: LoginService) {
+  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) { // Inyecta Router
     // Definir el formulario reactivo y sus validaciones
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -27,9 +28,13 @@ export class LoginComponent {
   manejarEnvio() {
     if (this.loginForm.valid) {
       const userData: Login = this.loginForm.value; // Crea un objeto User
-      this.loginService.registerUser(userData).subscribe({
+      this.loginService.loginUser(userData).subscribe({
         next: (response) => {
           console.log('Inicio de sesión exitoso:', response);
+          
+          // Almacena el token en el almacenamiento local
+          localStorage.setItem('token', response.token); // Asegúrate de que el token está en la respuesta
+          
           Swal.fire({
             icon: 'success',
             title: 'Inicio de sesión exitoso',
@@ -38,6 +43,9 @@ export class LoginComponent {
             showConfirmButton: false,
             timer: 2000,
             timerProgressBar: true,
+          }).then(() => {
+            // Redirigir al usuario a la página deseada después de que el usuario cierre la alerta
+            this.router.navigate(['/homeMale']); // Cambia esto a la ruta que desees
           });
         },
         error: (error) => {

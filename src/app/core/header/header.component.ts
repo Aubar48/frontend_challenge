@@ -4,7 +4,6 @@ import { ThemeService } from '../../services/dark-mode/dark-mode.service';
 import { MenuElementoComponent } from "../header/menu-elemento/menu-elemento.component";
 import { BurgerMenuElementoComponent } from './burger-menu-elemento/burger-menu-elemento.component';
 import { MenuItem } from '../../models/menu-item.model';
-import { BurgerItem } from '../../models/burger-item.model';
 
 /**
  * Componente HeaderComponent
@@ -135,13 +134,4 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
    {text:'Register', route:'/register'},
    {text:'Contact', route:'/contact'}
   ]
-/**Elementos del menu para movile */
-  burgerMenuItems: BurgerItem[] = [
-    {text:'Male Fifa', route:'/homeMale'},
-    {text:'Female Fifa', route: '/homeFemale'},
-    {text:'Login', route:'/login'},
-    {text:'Register', route:'/register'},
-    {text:'Contact', route:'/contact'}
-   ]
-
 }

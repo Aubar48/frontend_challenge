@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CardMale } from '../../models/card-male.model';
+import { PlayerCardModel } from '../../models/player-card.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'; // Importa el operador `map`
 
@@ -13,7 +13,7 @@ export class CardMaleService {
   constructor(private httpClient: HttpClient) {}
 
   // Obtener todos los jugadores, ahora con soporte para paginación
-  getCardMale(page: number = 1, limit: number = 10): Observable<CardMale[]> {
+  getCardMale(page: number = 1, limit: number = 10): Observable<PlayerCardModel[]> {
     // Ajusta la URL para incluir parámetros de paginación
     const params = `?page=${page}&limit=${limit}`;
     return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`).pipe(
@@ -25,17 +25,17 @@ export class CardMaleService {
   }
 
   // Agregar un nuevo jugador
-  postCardMale(newCardMale: CardMale): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(this.apiUrl, newCardMale);
+  postCardMale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
+    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel);
   }
 
   // Actualizar un jugador existente
-  putCardMale(updatedCardMale: CardMale): Observable<{ message: string }> {
-    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedCardMale.id}`, updatedCardMale);
+  putCardMale(updatedPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
+    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel);
   }
 
   // Eliminar un jugador por ID
-  deleteCardMale(cardMaleId: number): Observable<{ message: string }> {
-    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${cardMaleId}`);
+  deleteCardMale(playerCardModelId: number): Observable<{ message: string }> {
+    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`);
   }
 }

@@ -11,7 +11,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  registerUser(userData: Login): Observable<any> {
+  loginUser(userData: Login): Observable<any> {
     return this.http.post(this.apiUrl, userData);
   }
 }

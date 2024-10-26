@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CardMale } from '../../../models/card-male.model';
+import { PlayerCardModel } from '../../../models/player-card.model';
 import { Subscription } from 'rxjs';
 import { CardMaleService } from '../../../services/card-male/card-male.service';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./card-male.component.scss']
 })
 export class CardMaleComponent implements OnInit, OnDestroy {
-  cardMale?: CardMale[]; // Lista de jugadores
+  playerCardModel?: PlayerCardModel[]; // Lista de jugadores
   subscription = new Subscription();
 
   // Variables para paginación
@@ -47,7 +47,7 @@ export class CardMaleComponent implements OnInit, OnDestroy {
 
         // Verifica si la respuesta es un array
         if (Array.isArray(res)) {
-          this.cardMale = res;
+          this.playerCardModel = res;
           // Aquí actualiza el total de ítems si tu API proporciona esa información.
           // Por ejemplo: this.totalItems = res.totalItems; // Actualiza según tu backend.
           this.totalItems = 100; // Coloca el número total de jugadores. Actualiza según el backend.

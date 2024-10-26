@@ -1,9 +1,9 @@
  <!-- Menú de navegación específico para dispositivos móviles -->
  <nav class="mobile-menu">
-    <ul *ngIf="burgerMenuItems">
+    <ul *ngIf="menuItems">
       <!-- Elementos de navegación -->
-      <li *ngFor="let burgerMenuItem of burgerMenuItems"> 
-        <a [routerLink]="burgerMenuItem.route" routerLinkActive="active"> {{burgerMenuItem.text}} </a></li>
+      <li *ngFor="let menuItem of menuItems"> 
+        <a [routerLink]="menuItem.route" routerLinkActive="active"> {{menuItem.text}} </a></li>
       <!-- Interruptor para cambiar el modo (día/noche) en vista móvil -->
       <label class="switch">
         <input type="checkbox" id="modo-mobile">

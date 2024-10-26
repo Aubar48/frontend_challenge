@@ -1,4 +1,4 @@
-export interface CardFemale {
+export interface PlayerCardModel {
     id: number;
     fifa_version: string;
     fifa_update: string;
