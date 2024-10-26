@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card__image-container">
+    <img
+      class="card__image"
+      [src]="playerCard?.player_face_url"
+      alt="{{ playerCard?.long_name || 'Nombre no disponible' }}"
+    >
+  </div>
+
+  <svg class="card__svg" viewBox="0 0 800 500">
+    <path
+      d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
+      stroke="transparent"
+      fill="#333"
+    ></path>
+    <path
+      class="card__line"
+      d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400"
+      stroke="pink"
+      stroke-width="3"
+      fill="transparent"
+    ></path>
+  </svg>
+
+  <div class="card__content">
+    <h1 class="card__title">{{ playerCard?.long_name || 'Nombre no disponible' }}</h1>
+    <p>Club: {{ playerCard?.club_name || 'No disponible' }}</p>
+    <p>Nacionalidad: {{ playerCard?.nationality_name || 'No disponible' }}</p>
+    <p>Posición: {{ playerCard?.player_positions || 'No disponible' }}</p>
+    <p>Overall: {{ playerCard?.overall !== undefined ? playerCard?.overall : 'No disponible' }}</p>
+    <p>Edad: {{ playerCard?.age !== undefined ? playerCard?.age : 'No disponible' }}</p>
+  </div>
+
+  <div class="card__button">
+    <!-- Botones para editar y borrar -->
+  <button>Borrar</button>
+  <button>Editar</button>
+  </div>
+  
+</div>

@@ -10,11 +10,11 @@ export const routes: Routes = [ // Rutas de la aplicación.
   // Agrega parámetros opcionales para la paginación, como `page`.
   {
     path: 'homeMale',
-    loadComponent: () => import('./core/main/main.component').then(m => m.MainComponent),
+    loadComponent: () => import('./view/male-main/male-main.component').then(m => m.MaleMainComponent),
   },
   {
     path: 'homeMale/page/:page', // Ruta que permite navegación con un parámetro de página.
-    loadComponent: () => import('./core/main/main.component').then(m => m.MainComponent),
+    loadComponent: () => import('./view/male-main/male-main.component').then(m => m.MaleMainComponent),
   },
   {
     path: 'homeFemale',

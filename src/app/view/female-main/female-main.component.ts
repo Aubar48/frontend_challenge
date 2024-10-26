@@ -4,11 +4,13 @@ import { Subscription } from 'rxjs';
 import { CardFemaleService } from '../../services/card-female/card-female.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PaginationComponent } from '../../core/pagination/pagination.component';
+import { PlayerCardComponent } from '../../core/player-card/player-card.component';
 
 @Component({
   selector: 'app-female-main',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PaginationComponent,PlayerCardComponent],
   templateUrl: './female-main.component.html',
   styleUrls: ['./female-main.component.scss']
 })

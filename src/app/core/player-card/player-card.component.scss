@@ -1,0 +1,143 @@
+/* Estilos generales */
+img {
+  max-width: 100%;
+}
+
+
+.card {
+  position: relative;
+  background: #333;
+  border-radius: 6px;
+  padding: 1.5rem;
+  color: #aaa;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2),
+              0 0 1rem rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease;
+  height: 450px; /* Alto fijo */
+  width: 250px; /* Ancho fijo */
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Efecto hover */
+}
+
+.card__image-container {
+  margin-bottom: 1rem;
+  flex-shrink: 0; /* Evita que el contenedor de imagen cambie de tamaño */
+}
+
+.card__image {
+  height: 150px; /* Ajusta la altura de la imagen para que sea consistente */
+  width: 100%;
+  object-fit: cover; /* Escala la imagen para llenar el espacio sin deformarse */
+  opacity: 0;
+  animation: ImageFadeIn 0.8s 1.4s forwards;
+}
+
+.card__title {
+  color: white;
+  margin-top: 0;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+}
+
+.card__content {
+  flex: 1; /* Hace que el contenido ocupe el espacio restante */
+  display: flex;
+  flex-direction: column;
+  justify-content:center;
+  margin-top: -1rem;
+  opacity: 0;
+  animation: ContentFadeIn 0.8s 1.6s forwards;
+}
+.card__button{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.card__svg {
+  position: absolute;
+  left: 0;
+  top: 100px;
+}
+
+/* Animaciones */
+@keyframes LineFadeIn {
+  0% { opacity: 0; d: path("M 0 300 Q 0 300 0 300 Q 0 300 0 300 C 0 300 0 300 0 300 Q 0 300 0 300 "); stroke: #fff; }
+  50% { opacity: 1; d: path("M 0 300 Q 50 300 100 300 Q 250 300 350 300 C 350 300 500 300 650 300 Q 750 300 800 300"); stroke: #888BFF; }
+  100% { opacity: 1; d: path("M -2 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 802 400"); stroke: #545581; }
+}
+
+@keyframes ContentFadeIn {
+  0% { transform: translateY(-1rem); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes ImageFadeIn {
+  0% { transform: translate(-0.5rem, -0.5rem) scale(1.05); opacity: 0; filter: blur(2px); }
+  50% { opacity: 1; filter: blur(2px); }
+  100% { transform: translateY(0) scale(1.0); opacity: 1; filter: blur(0); }
+}
+
+/* Controles de paginación */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  margin: 0 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.pagination-controls span {
+  font-size: 18px;
+}
+
+/* Responsividad específica */
+
+/* Para móviles */
+@media only screen and (max-width: 600px) {
+  
+  .card {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 15px;
+  }
+}
+
+/* Para tablets */
+@media only screen and (min-width: 600px) and (max-width: 992px) {
+  
+  .card {
+    width: 100%;
+    padding: 1.5rem;
+  }
+}
+
+/* Para escritorio */
+@media only screen and (min-width: 992px) {
+  
+  .card {
+    width: 100%;
+    padding: 1.5rem;
+  }
+}
+
+/* Para resoluciones medias entre 992px y 1200px */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  
+  .card {
+    padding: 1rem;
+  }
+}

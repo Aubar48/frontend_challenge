@@ -3,13 +3,13 @@ import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
-import { MainComponent } from './core/main/main.component';
+import { MaleMainComponent } from './view/male-main/male-main.component';
 import { ThemeService } from './services/dark-mode/dark-mode.service'; // Importa el servicio
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, FooterComponent, HeaderComponent, MainComponent],
+  imports: [RouterOutlet, FooterComponent, HeaderComponent, MaleMainComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -31,13 +31,14 @@ export class AppComponent implements AfterViewInit {
 
   changeTitleIfHome() {
     if (isPlatformBrowser(this.platformId)) {
-      if (document.title === 'Home') {
+      if (document.title === 'Technology With Purpose') {
         let alertShow = false;
         setInterval(() => {
-          document.title = alertShow ? 'Home' : 'xAcademy';
+          document.title = alertShow ? 'Technology With Purpose' : 'xAcademy Santex';
           alertShow = !alertShow;
         }, 1000);
       }
+      
     }
   }
 }
