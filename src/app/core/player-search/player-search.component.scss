@@ -1,0 +1,66 @@
+// Estilos para el input de búsqueda
+input {
+  padding: 12px; /* Aumentar el padding para mejor apariencia */
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc; /* Color de borde */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de fuente */
+  transition: border-color 0.3s; /* Transición suave para el borde */
+
+  // Cambiar el color del borde al enfocar
+  &:focus {
+    border-color: #007bff; /* Color azul al enfocar */
+    outline: none; /* Sin outline por defecto */
+  }
+}
+
+// Estilos para la lista de resultados
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-width: 400px; /* Asegurar que la lista no exceda el ancho */
+  margin: 0 auto; /* Centrar la lista */
+}
+
+// Estilos para cada elemento de la lista
+li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px; /* Separación entre elementos */
+  padding: 10px; /* Espaciado interior */
+  border: 1px solid #ddd; /* Borde ligero */
+  border-radius: 4px; /* Bordes redondeados */
+  background-color: #f9f9f9; /* Fondo claro */
+  transition: background-color 0.3s; /* Transición suave para el fondo */
+
+  // Cambiar el fondo al pasar el mouse
+  &:hover {
+    background-color: #e9ecef; /* Color de fondo más oscuro al pasar */
+  }
+}
+
+// Estilos para los nombres de jugadores
+.player-name {
+  flex: 1; /* Ocupa el espacio restante */
+  font-size: 18px; /* Tamaño de fuente */
+  color: #333; /* Color de texto */
+  font-weight: bold; /* Negrita */
+}
+
+// Estilos para el botón de acción (por ejemplo, ver más)
+.button {
+  padding: 8px 12px; /* Espaciado interior */
+  background-color: #007bff; /* Color de fondo */
+  color: white; /* Color de texto */
+  border: none; /* Sin borde */
+  border-radius: 4px; /* Bordes redondeados */
+  cursor: pointer; /* Cursor tipo mano */
+  transition: background-color 0.3s; /* Transición suave para el fondo */
+
+  // Cambiar el color de fondo al pasar el mouse
+  &:hover {
+    background-color: #0056b3; /* Color más oscuro al pasar */
+  }
+}
