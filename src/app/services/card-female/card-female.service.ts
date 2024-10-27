@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PlayerCardModel } from '../../models/player-card.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // Importa el operador `map`
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +12,26 @@ export class CardFemaleService {
 
   constructor(private httpClient: HttpClient) {}
 
-  // Obtener todos los jugadores, transformando la respuesta para mayor flexibilidad
+  // Función privada para configurar los encabezados
+  private getHttpOptions() {
+    const authToken = localStorage.getItem('authToken') || '';
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': `Bearer ${authToken}`
+    });
+
+    return { headers: httpHeaders };
+  }
+
+  // Obtener todas las jugadoras, transformando la respuesta para mayor flexibilidad
   getCardFemale(page: number = 1, limit: number = 10): Observable<PlayerCardModel[]> {
     const params = `?page=${page}&limit=${limit}`;
 
-    return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`).pipe(
+    return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
       // Transforma los datos antes de entregarlos al componente
       map(response => {
-        // Si solo necesitas los valores de los jugadores
+        // Devuelve solo los valores de los jugadores
         return Object.values(response.players);
         
         // Si necesitas las claves junto con los valores, usa esta versión:
@@ -35,21 +47,21 @@ export class CardFemaleService {
 
   // Obtener una jugadora por ID
   getCardFemaleById(id: number): Observable<PlayerCardModel> {
-    return this.httpClient.get<PlayerCardModel>(`${this.apiUrl}/${id}`);
+    return this.httpClient.get<PlayerCardModel>(`${this.apiUrl}/${id}`, this.getHttpOptions());
   }
 
-  // Agregar un nuevo jugador
+  // Agregar una nueva jugadora
   postCardFemale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel);
+    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel, this.getHttpOptions());
   }
 
-  // Actualizar un jugador existente
+  // Actualizar una jugadora existente
   putCardFemale(updatedPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel);
+    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel, this.getHttpOptions());
   }
 
-  // Eliminar un jugador por ID
+  // Eliminar una jugadora por ID
   deleteCardFemale(playerCardModelId: number): Observable<{ message: string }> {
-    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`);
+    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`, this.getHttpOptions());
   }
 }

@@ -3,7 +3,7 @@ import Swal from 'sweetalert2';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../services/register/register.service';
-import { Register } from '../../models/register.model';
+import { Auth } from '../../models/auth.model';
 
 @Component({
   selector: 'app-register',
@@ -26,7 +26,7 @@ export class RegisterComponent {
   // Método para manejar el envío del formulario
   manejarEnvio() {
     if (this.registerForm.valid) {
-      const userData: Register = this.registerForm.value;
+      const userData: Auth = this.registerForm.value;
       this.registerService.registerUser(userData).subscribe({
         next: (response) => {
           console.log('Registro exitoso:', response);

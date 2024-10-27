@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PlayerCardModel } from '../../models/player-card.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'; // Importa el operador `map`
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,34 +12,43 @@ export class CardMaleService {
 
   constructor(private httpClient: HttpClient) {}
 
+  // Función privada para configurar los encabezados
+  private getHttpOptions() {
+    const authToken = localStorage.getItem('authToken') || '';
+    const httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      'Authorization': `Bearer ${authToken}`
+    });
+
+    return { headers: httpHeaders };
+  }
+
   // Obtener todos los jugadores, ahora con soporte para paginación
   getCardMale(page: number = 1, limit: number = 10): Observable<PlayerCardModel[]> {
-    // Ajusta la URL para incluir parámetros de paginación
     const params = `?page=${page}&limit=${limit}`;
-    return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`).pipe(
-      map(response => {
-        // Devuelve solo los valores de los jugadores
-        return Object.values(response.players);
-      })
+    return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
+      map(response => Object.values(response.players))
     );
   }
- // Obtener una jugadora por ID
- getCardMaleById(id: number): Observable<PlayerCardModel> {
-  return this.httpClient.get<PlayerCardModel>(`${this.apiUrl}/${id}`);
-}
+
+  // Obtener un jugador por ID
+  getCardMaleById(id: number): Observable<PlayerCardModel> {
+    return this.httpClient.get<PlayerCardModel>(`${this.apiUrl}/${id}`, this.getHttpOptions());
+  }
 
   // Agregar un nuevo jugador
   postCardMale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel);
+    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel, this.getHttpOptions());
   }
 
   // Actualizar un jugador existente
   putCardMale(updatedPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel);
+    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel, this.getHttpOptions());
   }
 
   // Eliminar un jugador por ID
   deleteCardMale(playerCardModelId: number): Observable<{ message: string }> {
-    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`);
+    return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`, this.getHttpOptions());
   }
 }
