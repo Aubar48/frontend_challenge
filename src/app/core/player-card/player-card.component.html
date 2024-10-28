@@ -2,7 +2,7 @@
   <div class="card__image-container">
     <img
       class="card__image"
-      [src]="playerCard?.player_face_url"
+      [src]="playerCard?.player_face_url || 'Foto no disponible'"
       alt="{{ playerCard?.long_name || 'Nombre no disponible' }}"
     >
   </div>
@@ -29,7 +29,9 @@
     <p>Posición: {{ playerCard?.player_positions || 'No disponible' }}</p>
     <p>Overall: {{ playerCard?.overall !== undefined ? playerCard?.overall : 'No disponible' }}</p>
     <p>Edad: {{ playerCard?.age !== undefined ? playerCard?.age : 'No disponible' }}</p>
-  
+    <p>Pie preferido: {{ playerCard?.preferred_foot !== undefined ? playerCard?.preferred_foot : 'No disponible' }}</p>
+    <p>Tipo de cuerpo: {{ playerCard?.body_type !== undefined ? playerCard?.body_type : 'No disponible' }}</p>
+
     <!-- Botones para editar, borrar, ver más -->
     <div class="card__button">
       <button (click)="onDelete()">Borrar</button>
