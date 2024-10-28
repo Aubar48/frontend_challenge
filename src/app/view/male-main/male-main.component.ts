@@ -23,7 +23,7 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   filteredPlayerCardModel: PlayerCardModel[] = []; // Inicializa la lista filtrada
 
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 100; // Cambia esto a 100 para mostrar 100 tarjetas
   totalItems: number = 0;
   totalPages: number = 0;
 
@@ -39,9 +39,6 @@ export class MaleMainComponent implements OnInit, OnDestroy {
     this.subscribeToRouteParams();
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
   private subscribeToRouteParams(): void {
     this.subscription.add(
@@ -55,15 +52,15 @@ export class MaleMainComponent implements OnInit, OnDestroy {
 
   loadPlayers(page: number): void {
     this.subscription.add(
-      this.cardMaleService.getCardMale(page, this.itemsPerPage).subscribe({
+      this.cardMaleService.getCardMale(1, 1000).subscribe({
         next: res => {
           console.log('Respuesta del servicio:', res);
-
           if (Array.isArray(res)) {
             this.playerCardModel = res;
-            this.filteredPlayerCardModel = res; // Inicializa la lista filtrada
-            this.totalItems = 161583; // Total de jugadores
+            this.filteredPlayerCardModel = res;
+            this.totalItems = 161570; // Total de jugadoras
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+            this.updateFilteredPlayerCards(); // Actualiza la lista filtrada después de cargar los jugadores
           } else {
             console.warn('La respuesta no es un array:', res);
           }
@@ -74,58 +71,47 @@ export class MaleMainComponent implements OnInit, OnDestroy {
       })
     );
   }
-
   onSearchTermChange(term: string): void {
-    this.currentSearchTerm = term; // Actualiza el término de búsqueda actual
-  
-    if (this.playerCardModel.length > 0) {
-      // Filtrar jugadores según el término de búsqueda
-      const filteredPlayers = this.playerCardModel.filter(player => {
-        const searchTerm = term.toLowerCase(); // Convertir término de búsqueda a minúsculas
-  
-        return (
-          player.long_name.toLowerCase().includes(searchTerm) || 
-          (player.club_name && player.club_name.toLowerCase().includes(searchTerm)) ||
-          (player.nationality_name && player.nationality_name.toLowerCase().includes(searchTerm)) ||
-          (player.player_positions && player.player_positions.toLowerCase().includes(searchTerm)) ||
-          (player.age.toString().includes(searchTerm)) || // Buscar por edad
-          (player.overall.toString().includes(searchTerm)) || // Buscar por overall
-          (player.potential.toString().includes(searchTerm)) || // Buscar por potencial
-          (player.value_eur && player.value_eur.toString().includes(searchTerm)) || // Buscar por valor
-          (player.wage_eur && player.wage_eur.toString().includes(searchTerm)) || // Buscar por salario
-          (player.preferred_foot && player.preferred_foot.toLowerCase().includes(searchTerm)) ||
-          (player.height_cm && player.height_cm.toString().includes(searchTerm)) || // Buscar por altura
-          (player.weight_kg && player.weight_kg.toString().includes(searchTerm)) || // Buscar por peso
-          (player.weak_foot && player.weak_foot.toString().includes(searchTerm)) || // Buscar por weak foot
-          (player.skill_moves && player.skill_moves.toString().includes(searchTerm)) || // Buscar por skill moves
-          (player.international_reputation && player.international_reputation.toString().includes(searchTerm)) || // Buscar por reputación internacional
-          (player.work_rate && player.work_rate.toLowerCase().includes(searchTerm)) || // Buscar por work rate
-          (player.body_type && player.body_type.toLowerCase().includes(searchTerm)) || // Buscar por body type
-          (player.pace && player.pace.toString().includes(searchTerm)) || // Buscar por pace
-          (player.shooting && player.shooting.toString().includes(searchTerm)) || // Buscar por shooting
-          (player.passing && player.passing.toString().includes(searchTerm)) || // Buscar por passing
-          (player.dribbling && player.dribbling.toString().includes(searchTerm)) || // Buscar por dribbling
-          (player.defending && player.defending.toString().includes(searchTerm)) || // Buscar por defending
-          (player.physic && player.physic.toString().includes(searchTerm)) // Buscar por physic
-        );
-      });
-  
-      // Aplicar paginación
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-  
-      this.filteredPlayerCardModel = filteredPlayers.slice(startIndex, endIndex);
+    this.currentSearchTerm = term;
+
+    // Filtrar jugadores basados en el término de búsqueda
+    if (term.trim() === '') {
+      this.filteredPlayerCardModel = this.playerCardModel.slice();
+    } else {
+      const isOnlyNumbers = /^\d+$/.test(term.trim());
+      if (!isOnlyNumbers) {
+        const searchTerm = term.toLowerCase();
+        this.filteredPlayerCardModel = this.playerCardModel.filter(player => {
+          return (
+            player.long_name.toLowerCase().includes(searchTerm) ||
+            (player.club_name && player.club_name.toLowerCase().includes(searchTerm)) ||
+            (player.nationality_name && player.nationality_name.toLowerCase().includes(searchTerm)) ||
+            (player.player_positions && player.player_positions.toLowerCase().includes(searchTerm)) ||
+            (player.preferred_foot && player.preferred_foot.toLowerCase().includes(searchTerm)) ||
+            (player.body_type && player.body_type.toLowerCase().includes(searchTerm))
+          );
+        });
+      } else {
+        this.filteredPlayerCardModel = this.playerCardModel.slice();
+      }
     }
+
+    // Actualizar la paginación después de filtrar
+    this.updateFilteredPlayerCards();
   }
-  
+
+  updateFilteredPlayerCards(): void {
+    // Aplicar la paginación a los resultados filtrados
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.filteredPlayerCardModel = this.filteredPlayerCardModel.slice(startIndex, endIndex);
+  }
+
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
       this.router.navigate(['/homeMale/page', this.currentPage]);
       this.onSearchTermChange(this.currentSearchTerm);
-
-      //this.loadPlayers(this.currentPage);
-      
     }
   }
 
@@ -147,5 +133,9 @@ export class MaleMainComponent implements OnInit, OnDestroy {
 
   editar(player: PlayerCardModel): void {
     this.router.navigate(['/edit-player', player.id]);
+  }
+  
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

@@ -6,22 +6,25 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PaginationComponent } from '../../core/pagination/pagination.component';
 import { PlayerCardComponent } from '../../core/player-card/player-card.component';
+import { FormsModule } from '@angular/forms';
+import { PlayerSearchComponent } from '../../core/player-search/player-search.component';
 
 @Component({
   selector: 'app-female-main',
   standalone: true,
-  imports: [CommonModule, PaginationComponent, PlayerCardComponent],
+  imports: [CommonModule, FormsModule, PaginationComponent, PlayerCardComponent, PlayerSearchComponent],
   templateUrl: './female-main.component.html',
   styleUrls: ['./female-main.component.scss']
 })
 export class FemaleMainComponent implements OnInit, OnDestroy {
-  playerCardModel?: PlayerCardModel[]; // Lista de jugadoras
+  playerCardModel: PlayerCardModel[] = [];
+  filteredPlayerCardModel: PlayerCardModel[] = [];
+  currentSearchTerm: string = '';
   subscription = new Subscription();
 
-  // Variables para paginación
   currentPage: number = 1;
-  itemsPerPage: number = 10; // Número de elementos por página
-  totalItems: number = 0; // Total de elementos
+  itemsPerPage: number = 100; // Cambiar a 100 para mostrar más en la paginación
+  totalItems: number = 0;
   totalPages: number = 0;
 
   constructor(
@@ -33,31 +36,28 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscribeToRouteParams();
   }
-/**
-   * Método para suscribirse a los parámetros de la URL.
-   * Actualiza la página actual y carga los jugadores.
-   */
-private subscribeToRouteParams(): void {
-  this.subscription.add(
-    this.route.params.subscribe(params => {
-      const page = params['page'] ? parseInt(params['page'], 10) : 1;
-      this.currentPage = isNaN(page) ? 1 : page; // Asegurarse de que la página sea válida
-      this.loadPlayers(this.currentPage);
-    })
-  );
-}
 
-  // Método para cargar jugadoras en función de la página
-  loadPlayers(page: number) {
+  private subscribeToRouteParams(): void {
     this.subscription.add(
-      this.cardFemaleService.getCardFemale(page, this.itemsPerPage).subscribe({
+      this.route.params.subscribe(params => {
+        const page = params['page'] ? parseInt(params['page'], 10) : 1;
+        this.currentPage = isNaN(page) ? 1 : page;
+        this.loadPlayers(this.currentPage);
+      })
+    );
+  }
+
+  loadPlayers(page: number): void {
+    this.subscription.add(
+      this.cardFemaleService.getCardFemale(this.currentPage, 1000).subscribe({
         next: res => {
           console.log('Respuesta del servicio:', res);
-
           if (Array.isArray(res)) {
             this.playerCardModel = res;
-            this.totalItems = 181360; // Coloca el número total de jugadores. Actualiza según el backend.
+            this.filteredPlayerCardModel = res;
+            this.totalItems = 181347; // Total de jugadoras
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
+            this.updateFilteredPlayerCards(); // Actualiza la lista filtrada después de cargar los jugadores
           } else {
             console.warn('La respuesta no es un array:', res);
           }
@@ -69,39 +69,73 @@ private subscribeToRouteParams(): void {
     );
   }
 
-  // Cambiar de página y actualizar la URL
+  onSearchTermChange(term: string): void {
+    this.currentSearchTerm = term;
+
+    // Filtrar jugadores basados en el término de búsqueda
+    if (term.trim() === '') {
+      this.filteredPlayerCardModel = this.playerCardModel.slice();
+    } else {
+      const isOnlyNumbers = /^\d+$/.test(term.trim());
+      if (!isOnlyNumbers) {
+        const searchTerm = term.toLowerCase();
+        this.filteredPlayerCardModel = this.playerCardModel.filter(player => {
+          return (
+            player.long_name.toLowerCase().includes(searchTerm) ||
+            (player.club_name && player.club_name.toLowerCase().includes(searchTerm)) ||
+            (player.nationality_name && player.nationality_name.toLowerCase().includes(searchTerm)) ||
+            (player.player_positions && player.player_positions.toLowerCase().includes(searchTerm)) ||
+            (player.preferred_foot && player.preferred_foot.toLowerCase().includes(searchTerm)) ||
+            (player.body_type && player.body_type.toLowerCase().includes(searchTerm))
+          );
+        });
+      } else {
+        this.filteredPlayerCardModel = this.playerCardModel.slice();
+      }
+    }
+
+    // Actualizar la paginación después de filtrar
+    this.updateFilteredPlayerCards();
+  }
+
+  updateFilteredPlayerCards(): void {
+    // Aplicar la paginación a los resultados filtrados
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.filteredPlayerCardModel = this.filteredPlayerCardModel.slice(startIndex, endIndex);
+  }
+
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.router.navigate(['/homeFemale/page', this.currentPage]); // Actualiza la URL
-      this.loadPlayers(this.currentPage);
+      this.router.navigate(['/homeFemale/page', this.currentPage]);
+      this.updateFilteredPlayerCards(); // Actualiza los cards mostrados
     }
   }
 
-  ngOnDestroy(): void {
-    // Desuscripción para evitar fugas de memoria
-    this.subscription.unsubscribe();
-  }
+  
 
   verMas(femaleId: number): void {
-    this.router.navigate(['/female', femaleId]); // Navega a una vista de detalles directamente
+    this.router.navigate(['/female', femaleId]);
   }
 
-  // Método para borrar jugadora
   borrar(femaleId: number): void {
     this.cardFemaleService.deleteCardFemale(femaleId).subscribe({
       next: () => {
-        console.log(`Borrando jugador con ID: ${femaleId}`);
-        this.loadPlayers(this.currentPage); // Recargar jugadores tras la eliminación
+        console.log(`Borrando jugadora con ID: ${femaleId}`);
+        this.loadPlayers(this.currentPage);
       },
       error: error => {
-        console.warn('Error al borrar el jugador:', error);
+        console.warn('Error al borrar la jugadora:', error);
       }
     });
   }
 
-  // Método para editar jugadora
   editar(female: PlayerCardModel): void {
-    this.router.navigate(['/edit-female', female.id]); // Navega al formulario de edición
+    this.router.navigate(['/edit-female', female.id]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

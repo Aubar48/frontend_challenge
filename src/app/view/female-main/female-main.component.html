@@ -1,3 +1,6 @@
+<!-- Usar el componente de búsqueda -->
+<app-player-search (searchTermChange)="onSearchTermChange($event)"></app-player-search>
+
 <!-- Usar el componente de paginación -->
 <app-pagination 
   [currentPage]="currentPage" 
@@ -6,9 +9,14 @@
 </app-pagination>
 
 <div class="container">
-  <!-- Lista de tarjetas de jugadoras -->
+  <!-- Mensaje cuando no hay jugadores filtrados -->
+  <div *ngIf="!filteredPlayerCardModel || filteredPlayerCardModel.length === 0" class="no-results">
+    <p>No se encontraron jugadores.</p>
+  </div>
+
+  <!-- Lista de tarjetas de jugadores -->
   <app-player-card 
-    *ngFor="let card of playerCardModel" 
+    *ngFor="let card of filteredPlayerCardModel" 
     [playerCard]="card"
     (deletePlayer)="borrar(card.id)"
     (editPlayer)="editar(card)" 
