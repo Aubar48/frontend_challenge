@@ -64,4 +64,12 @@ export class CardFemaleService {
   deleteCardFemale(playerCardModelId: number): Observable<{ message: string }> {
     return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`, this.getHttpOptions());
   }
+
+  // Función para buscar jugadores por término
+  searchPlayers(searchTerm: string): Observable<PlayerCardModel[]> {
+    const params = `?search=${encodeURIComponent(searchTerm)}`; // Codifica el término de búsqueda
+    return this.httpClient.get<{ players: PlayerCardModel[] }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
+      map(response => response.players)
+    );
+  }
 }
