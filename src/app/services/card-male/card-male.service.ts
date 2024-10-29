@@ -14,12 +14,16 @@ export class CardMaleService {
 
   // Función privada para configurar los encabezados
   private getHttpOptions() {
-    const authToken = localStorage.getItem('authToken') || '';
-    const httpHeaders = new HttpHeaders({
+    let httpHeaders = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Cache-Control': 'no-cache',
-      'Authorization': `Bearer ${authToken}`
+      'Cache-Control': 'no-cache'
     });
+
+    // Verifica que 'window' esté definido (solo en el navegador)
+    if (typeof window !== 'undefined') {
+      const authToken = localStorage.getItem('authToken') || '';
+      httpHeaders = httpHeaders.set('Authorization', `Bearer ${authToken}`);
+    }
 
     return { headers: httpHeaders };
   }
@@ -52,8 +56,8 @@ export class CardMaleService {
     return this.httpClient.delete<{ message: string }>(`${this.apiUrl}/${playerCardModelId}`, this.getHttpOptions());
   }
 
-   // Función para buscar jugadores por término
-   searchPlayers(searchTerm: string): Observable<PlayerCardModel[]> {
+  // Función para buscar jugadores por término
+  searchPlayers(searchTerm: string): Observable<PlayerCardModel[]> {
     const params = `?search=${encodeURIComponent(searchTerm)}`; // Codifica el término de búsqueda
     return this.httpClient.get<{ players: PlayerCardModel[] }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
       map(response => response.players)

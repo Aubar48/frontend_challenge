@@ -13,7 +13,7 @@ export class PlayerCardComponent {
   @Input() playerCard?: PlayerCardModel; // Individual player card
 
   @Output() deletePlayer = new EventEmitter<number>(); // Emite el ID para borrar
-  @Output() editPlayer = new EventEmitter<PlayerCardModel>(); // Emite el modelo para editar
+  @Output() editPlayer = new EventEmitter<number>(); // Emite el modelo para editar
   @Output() viewMore = new EventEmitter<number>(); // Emite el ID para ver más
   router: any;
 
@@ -27,7 +27,11 @@ export class PlayerCardComponent {
   
 
   onEdit() {
-    this.editPlayer.emit(this.playerCard);
+    if (this.playerCard) {
+      this.editPlayer.emit(this.playerCard.id);
+    } else {
+      console.warn('playerCard is undefined during edit');
+    }
   }
 
   onViewMore() {

@@ -45,6 +45,22 @@ export const routes: Routes = [ // Rutas de la aplicación.
     path: 'players/:id',  // Ruta para ver más detalles del jugador
     loadComponent: () => import('./view/player-detail/player-detail.component').then(m => m.PlayerDetailComponent), // Reemplaza 'path-to-your' con la ruta correcta
   },
+  // Nueva ruta para editar detalles del jugador femenino
+  {
+    path: 'female/edit/:id',  // Ruta para ver más detalles del jugador
+    loadComponent: () => import('./view/edit-player/edit-player.component').then(m => m.EditPlayerComponent), // Reemplaza 'path-to-your' con la ruta correcta
+  },
+  {
+    path: 'players/edit/:id',  // Ruta para ver más detalles del jugador
+    loadComponent: () => import('./view/edit-player/edit-player.component').then(m => m.EditPlayerComponent), // Reemplaza 'path-to-your' con la ruta correcta
+  },
+  
+  // Nueva ruta para crear un jugador
+  {
+    path: 'create-player',
+    loadComponent: () => import('./core/player-create/player-create.component').then(m => m.PlayerCreateComponent), // Asegúrate de que la ruta sea correcta
+  },
+
   // Ruta comodín que carga el NotFoundComponent si no hay coincidencias.
   { path: '**', component: NotFoundComponent },
 ];

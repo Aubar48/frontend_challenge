@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="card">
+    <div class="card__content">
+      <h1 class="card__title">Editar {{ playerCard.long_name }}</h1>
+
+      <form (ngSubmit)="onUpdate()" #playerForm="ngForm">
+        <div class="form-group">
+          <label for="long_name">Nombre:</label>
+          <input type="text" [(ngModel)]="playerCard.long_name" name="long_name" id="long_name" required />
+          <div *ngIf="playerForm.submitted && !playerCard.long_name" class="error-message">El nombre es obligatorio.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="club_name">Club:</label>
+          <input type="text" [(ngModel)]="playerCard.club_name" name="club_name" id="club_name" />
+        </div>
+
+        <div class="form-group">
+          <label for="nationality_name">Nacionalidad:</label>
+          <input type="text" [(ngModel)]="playerCard.nationality_name" name="nationality_name" id="nationality_name" />
+        </div>
+
+        <div class="form-group">
+          <label for="player_positions">Posición:</label>
+          <input type="text" [(ngModel)]="playerCard.player_positions" name="player_positions" id="player_positions" />
+        </div>
+
+        <div class="form-group">
+          <label for="age">Edad:</label>
+          <input type="number" [(ngModel)]="playerCard.age" name="age" id="age" />
+        </div>
+
+        <div class="form-group">
+          <label for="height_cm">Altura (cm):</label>
+          <input type="number" [(ngModel)]="playerCard.height_cm" name="height_cm" id="height_cm" />
+        </div>
+
+        <div class="form-group">
+          <label for="weight_kg">Peso (kg):</label>
+          <input type="number" [(ngModel)]="playerCard.weight_kg" name="weight_kg" id="weight_kg" />
+        </div>
+
+        <!-- Agrega más campos según sea necesario -->
+
+        <div class="card__button">
+          <button type="submit" [disabled]="!playerForm.valid">Actualizar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,122 @@
+<form [formGroup]="playerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="long_name">Nombre completo</label>
+      <input id="long_name" formControlName="long_name" required />
+      <div *ngIf="playerForm.get('long_name')?.invalid && (playerForm.get('long_name')?.touched || playerForm.get('long_name')?.dirty)">
+        <small class="error">El nombre completo es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="fifa_version">Versión de FIFA</label>
+      <input id="fifa_version" formControlName="fifa_version" required />
+      <div *ngIf="playerForm.get('fifa_version')?.invalid && (playerForm.get('fifa_version')?.touched || playerForm.get('fifa_version')?.dirty)">
+        <small class="error">La versión de FIFA es obligatoria.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="overall">Overall</label>
+      <input id="overall" type="number" formControlName="overall" required />
+      <div *ngIf="playerForm.get('overall')?.invalid && (playerForm.get('overall')?.touched || playerForm.get('overall')?.dirty)">
+        <small class="error">El overall es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="potential">Potencial</label>
+      <input id="potential" type="number" formControlName="potential" required />
+      <div *ngIf="playerForm.get('potential')?.invalid && (playerForm.get('potential')?.touched || playerForm.get('potential')?.dirty)">
+        <small class="error">El potencial es obligatorio.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="age">Edad</label>
+      <input id="age" type="number" formControlName="age" required />
+      <div *ngIf="playerForm.get('age')?.invalid && (playerForm.get('age')?.touched || playerForm.get('age')?.dirty)">
+        <small class="error">La edad es obligatoria.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="height_cm">Altura (cm)</label>
+      <input id="height_cm" type="number" formControlName="height_cm" />
+    </div>
+  
+    <div>
+      <label for="weight_kg">Peso (kg)</label>
+      <input id="weight_kg" type="number" formControlName="weight_kg" />
+    </div>
+  
+    <div>
+      <label for="preferred_foot">Pie preferido</label>
+      <select id="preferred_foot" formControlName="preferred_foot">
+        <option value="">Seleccionar</option>
+        <option value="izquierdo">Izquierdo</option>
+        <option value="derecho">Derecho</option>
+      </select>
+    </div>
+  
+    <div>
+      <label for="club_name">Nombre del Club</label>
+      <input id="club_name" formControlName="club_name" />
+    </div>
+  
+    <div>
+      <label for="nationality_name">Nacionalidad</label>
+      <input id="nationality_name" formControlName="nationality_name" />
+    </div>
+  
+    <div>
+      <label for="player_traits">Rasgos del jugador</label>
+      <input id="player_traits" formControlName="player_traits" />
+      <small>Separe los rasgos por comas.</small>
+    </div>
+  
+    <div>
+      <label for="player_positions">Posiciones</label>
+      <input id="player_positions" formControlName="player_positions" required />
+      <div *ngIf="playerForm.get('player_positions')?.invalid && (playerForm.get('player_positions')?.touched || playerForm.get('player_positions')?.dirty)">
+        <small class="error">Las posiciones son obligatorias.</small>
+      </div>
+    </div>
+  
+    <div>
+      <label for="position">Posición</label>
+      <input id="position" formControlName="position" />
+    </div>
+  
+    <div>
+      <label for="weak_foot">Pies débiles</label>
+      <input id="weak_foot" type="number" formControlName="weak_foot" />
+    </div>
+  
+    <div>
+      <label for="skill_moves">Habilidades</label>
+      <input id="skill_moves" type="number" formControlName="skill_moves" />
+    </div>
+  
+    <div>
+      <label for="work_rate">Tasa de trabajo</label>
+      <input id="work_rate" formControlName="work_rate" />
+    </div>
+  
+    <div>
+      <label for="release_clause">Cláusula de liberación</label>
+      <input id="release_clause" type="number" formControlName="release_clause" />
+    </div>
+  
+    <div>
+      <label for="contract_until">Contrato hasta</label>
+      <input id="contract_until" type="date" formControlName="contract_until" />
+    </div>
+  
+    <div>
+      <label for="image_url">URL de imagen</label>
+      <input id="image_url" formControlName="image_url" />
+    </div>
+  
+    <button type="submit" [disabled]="playerForm.invalid">Crear Jugador/a</button>
+  </form>
+  

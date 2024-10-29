@@ -132,7 +132,7 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   }
 
   editar(player: PlayerCardModel): void {
-    this.router.navigate(['/edit-player', player.id]);
+    this.router.navigate(['/players/edit', player.id]);
   }
   
   ngOnDestroy(): void {
