@@ -1,7 +1,7 @@
 export interface PlayerCardModel {
     id: number;
-    fifa_version: string;
-    fifa_update: string;
+    fifa_version?: string;
+    fifa_update?: string;
     player_face_url: string;
     long_name: string;
     player_positions: string;

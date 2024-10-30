@@ -39,13 +39,20 @@ export class MaleMainComponent implements OnInit, OnDestroy {
     this.subscribeToRouteParams();
   }
 
-
   private subscribeToRouteParams(): void {
     this.subscription.add(
-      this.route.params.subscribe(params => {
-        const page = params['page'] ? parseInt(params['page'], 10) : 1;
-        this.currentPage = isNaN(page) ? 1 : page;
+      this.route.paramMap.subscribe(params => {
+        const page = params.get('page');
+        this.currentPage = page ? parseInt(page, 10) : 1;
         this.loadPlayers(this.currentPage);
+      })
+    );
+
+    // Captura los parámetros de consulta
+    this.subscription.add(
+      this.route.queryParams.subscribe(params => {
+        this.currentSearchTerm = params['search'] || ''; // Captura el término de búsqueda
+        this.onSearchTermChange(this.currentSearchTerm); // Filtra los jugadores
       })
     );
   }
@@ -61,6 +68,12 @@ export class MaleMainComponent implements OnInit, OnDestroy {
             this.totalItems = 161570; // Total de jugadoras
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
             this.updateFilteredPlayerCards(); // Actualiza la lista filtrada después de cargar los jugadores
+
+            // Actualiza la URL con la página actual (sin parámetros de consulta)
+            this.router.navigate(['/homeMale/page', this.currentPage], {
+              queryParams: { search: this.currentSearchTerm }, // Solo mantiene el término de búsqueda
+              queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+            });
           } else {
             console.warn('La respuesta no es un array:', res);
           }
@@ -71,9 +84,10 @@ export class MaleMainComponent implements OnInit, OnDestroy {
       })
     );
   }
+
   onSearchTermChange(term: string): void {
     this.currentSearchTerm = term;
-
+  
     // Filtrar jugadores basados en el término de búsqueda
     if (term.trim() === '') {
       this.filteredPlayerCardModel = this.playerCardModel.slice();
@@ -95,9 +109,17 @@ export class MaleMainComponent implements OnInit, OnDestroy {
         this.filteredPlayerCardModel = this.playerCardModel.slice();
       }
     }
-
+  
     // Actualizar la paginación después de filtrar
     this.updateFilteredPlayerCards();
+  
+    // Navegar a la misma ruta con el parámetro de búsqueda
+    this.router.navigate([], {
+      queryParams: { 
+        search: this.currentSearchTerm // Solo agrega el parámetro de búsqueda
+      },
+      queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+    });
   }
 
   updateFilteredPlayerCards(): void {
@@ -110,8 +132,8 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.router.navigate(['/homeMale/page', this.currentPage]);
-      this.onSearchTermChange(this.currentSearchTerm);
+      this.loadPlayers(this.currentPage); // Carga los jugadores de la nueva página
+      this.onSearchTermChange(this.currentSearchTerm); // Actualiza el término de búsqueda
     }
   }
 

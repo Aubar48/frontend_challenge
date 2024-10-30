@@ -1,43 +1,136 @@
+/* Estilos generales */
+img {
+  max-width: 100%;
+}
+
+/* Contenedor principal */
 .container {
-    padding: 20px;
-  }
-  
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Estilo de la tarjeta */
+.card {
+  background: #333;
+  border-radius: 6px;
+  padding: 1.5rem;
+  color: #aaa;
+  box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.2),
+              0 0 1rem rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+  width: 100%;
+  max-width: 500px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* Contenido de la tarjeta */
+.card__content,
+.card__content2,
+.card__content3 {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Estilo del título */
+.card__title {
+  color: white;
+  font-weight: 800;
+  font-size: 1.5rem;
+}
+
+/* Botón de la tarjeta */
+.card__button {
+  width: 100%;
+}
+
+.card__button button {
+  background-color: #444;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.card__button button:hover {
+  background-color: #555;
+}
+
+/* Formulario y elementos del formulario */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-weight: 500;
+  color: #ddd;
+}
+
+input[type="text"],
+input[type="number"] {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #444;
+  color: #eee;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #888;
+  outline: none;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.9em;
+}
+
+/* Responsividad */
+@media (min-width: 600px) {
   .card {
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    max-width: 600px;
   }
-  
-  .form-group {
-    margin-bottom: 15px;
+}
+
+@media (min-width: 900px) {
+  .container {
+    padding: 30px;
   }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
+
+  .card {
+    max-width: 700px;
   }
-  
-  input[type="text"],
-  input[type="number"] {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+
+  .card__content,
+  .card__content2,
+  .card__content3 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
-  
-  .error-message {
-    color: red;
-    font-size: 0.9em;
+}
+
+/* Animaciones */
+@keyframes ContentFadeIn {
+  0% {
+    transform: translateY(-1rem);
+    opacity: 0;
   }
-  
-  .card__button {
-    display: flex;
-    justify-content: space-between;
+  100% {
+    transform: translateY(0);
+    opacity: 1;
   }
-  
-  .message {
-    margin-top: 10px;
-    color: green; /* Cambia el color según sea necesario */
-  }
-  
+}

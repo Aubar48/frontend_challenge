@@ -43,12 +43,12 @@ export class CardFemaleService {
 
   // Agregar una nueva jugadora
   postCardFemale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel, this.getHttpOptions());
+    return this.httpClient.post<{ message: string }>(`${this.apiUrl}/create`, newPlayerCardModel, this.getHttpOptions());
   }
 
   // Actualizar una jugadora existente
   putCardFemale(updatedPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel, this.getHttpOptions());
+    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/edit/${updatedPlayerCardModel.id}`, updatedPlayerCardModel, this.getHttpOptions());
   }
 
   // Eliminar una jugadora por ID

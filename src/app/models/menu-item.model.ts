@@ -1,6 +1,6 @@
 export interface MenuItem {
     text:string;
-    route:string;
+    route?:string;
     event?: () => void; // Función opcional para manejar eventos
 
 }

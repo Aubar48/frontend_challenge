@@ -39,17 +39,25 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
 
   private subscribeToRouteParams(): void {
     this.subscription.add(
-      this.route.params.subscribe(params => {
-        const page = params['page'] ? parseInt(params['page'], 10) : 1;
-        this.currentPage = isNaN(page) ? 1 : page;
+      this.route.paramMap.subscribe(params => {
+        const page = params.get('page');
+        this.currentPage = page ? parseInt(page, 10) : 1;
         this.loadPlayers(this.currentPage);
+      })
+    );
+
+    // Captura los parámetros de consulta
+    this.subscription.add(
+      this.route.queryParams.subscribe(params => {
+        this.currentSearchTerm = params['search'] || ''; // Captura el término de búsqueda
+        this.onSearchTermChange(this.currentSearchTerm); // Filtra los jugadores
       })
     );
   }
 
   loadPlayers(page: number): void {
     this.subscription.add(
-      this.cardFemaleService.getCardFemale(this.currentPage, 1000).subscribe({
+      this.cardFemaleService.getCardFemale(page, 1000).subscribe({
         next: res => {
           console.log('Respuesta del servicio:', res);
           if (Array.isArray(res)) {
@@ -58,6 +66,12 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
             this.totalItems = 181347; // Total de jugadoras
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
             this.updateFilteredPlayerCards(); // Actualiza la lista filtrada después de cargar los jugadores
+
+            // Actualiza la URL con la página actual y el término de búsqueda
+            this.router.navigate(['/homeFemale/page', this.currentPage], {
+              queryParams: { search: this.currentSearchTerm }, // Solo mantiene el término de búsqueda
+              queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+            });
           } else {
             console.warn('La respuesta no es un array:', res);
           }
@@ -96,6 +110,12 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
 
     // Actualizar la paginación después de filtrar
     this.updateFilteredPlayerCards();
+
+    // Navegar a la misma ruta con el parámetro de búsqueda
+    this.router.navigate([], {
+      queryParams: { search: this.currentSearchTerm }, // Solo agrega el parámetro de búsqueda
+      queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+    });
   }
 
   updateFilteredPlayerCards(): void {
@@ -108,12 +128,9 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.router.navigate(['/homeFemale/page', this.currentPage]);
-      this.updateFilteredPlayerCards(); // Actualiza los cards mostrados
+      this.loadPlayers(this.currentPage); // Carga los jugadores de la nueva página
     }
   }
-
-  
 
   verMas(femaleId: number): void {
     this.router.navigate(['/female', femaleId]);

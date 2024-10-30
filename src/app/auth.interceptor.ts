@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -9,12 +9,12 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private router: Router) {}
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('authToken');
+    const authToken = localStorage.getItem('authToken');
 
     // Clona la solicitud y añade los encabezados de autorización y content-type
     request = request.clone({
       setHeaders: {
-        Authorization: token ? `Bearer ${token}` : '',
+        Authorization: authToken ? `Bearer ${authToken}` : '',
         'Content-Type': 'application/json' // Asegúrate de que el tipo de contenido sea correcto
       }
     });
@@ -31,3 +31,4 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 }
+*/

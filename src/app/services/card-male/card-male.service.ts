@@ -22,6 +22,8 @@ export class CardMaleService {
     // Verifica que 'window' esté definido (solo en el navegador)
     if (typeof window !== 'undefined') {
       const authToken = localStorage.getItem('authToken') || '';
+      console.log('Token de autenticación:', authToken);
+
       httpHeaders = httpHeaders.set('Authorization', `Bearer ${authToken}`);
     }
 
@@ -29,7 +31,7 @@ export class CardMaleService {
   }
 
   // Obtener todos los jugadores, ahora con soporte para paginación
-  getCardMale(page: number = 1, limit: number = 10): Observable<PlayerCardModel[]> {
+  getCardMale(page: number = 1, limit: number = 100): Observable<PlayerCardModel[]> {
     const params = `?page=${page}&limit=${limit}`;
     return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
       map(response => Object.values(response.players))
@@ -43,12 +45,12 @@ export class CardMaleService {
 
   // Agregar un nuevo jugador
   postCardMale(newPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.post<{ message: string }>(this.apiUrl, newPlayerCardModel, this.getHttpOptions());
+    return this.httpClient.post<{ message: string }>(`${this.apiUrl}/create`, newPlayerCardModel, this.getHttpOptions());
   }
 
   // Actualizar un jugador existente
   putCardMale(updatedPlayerCardModel: PlayerCardModel): Observable<{ message: string }> {
-    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/${updatedPlayerCardModel.id}`, updatedPlayerCardModel, this.getHttpOptions());
+    return this.httpClient.put<{ message: string }>(`${this.apiUrl}/edit/${updatedPlayerCardModel.id}`, updatedPlayerCardModel, this.getHttpOptions());
   }
 
   // Eliminar un jugador por ID

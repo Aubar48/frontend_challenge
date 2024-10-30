@@ -39,8 +39,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       this.initModo();
       window.addEventListener('resize', this.resizeListener);
       this.checkAuthentication(); // Verificar autenticación al cargar el componente
-      this.updateMenuItems();
-
     }
   }
 
@@ -99,7 +97,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         { text: 'Female Fifa', route: '/homeFemale' },
         { text: 'Contact', route: '/contact' },
         { text: 'Create', route: '/create-player' },
-        { text: 'Logout', route:'/login', event: () => this.logout() }
+        { text: 'Logout', event: () => this.logout() }
       ];
     } else {
       this.menuItems = [
@@ -115,10 +113,10 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   }
   
   checkAuthentication() {
-    this.isAuthenticated = this.loginService.isAuthenticated();
+    this.loginService.isAuthenticated() 
+    this.isAuthenticated = true;
     this.updateMenuItems();
-    this.router.navigate(['/homeMale']); // Redirige a la página de inicio de sesión
-    // Actualiza el menú según el estado de autenticación
+
   }
 
   logout() {
