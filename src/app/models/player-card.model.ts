@@ -2,16 +2,16 @@ export interface PlayerCardModel {
     id: number;
     fifa_version?: string;
     fifa_update?: string;
-    player_face_url: string;
+    player_face_url?: string;
     long_name: string;
-    player_positions: string;
+    player_positions?: string;
     club_name?: string; // El valor puede ser null, así que lo marco como opcional
     nationality_name?: string; // El valor puede ser null, así que lo marco como opcional
-    overall: number;
-    potential: number;
+    overall?: number;
+    potential?: number;
     value_eur?: number; // El valor puede ser null, así que lo marco como opcional
     wage_eur?: number; // El valor puede ser null, así que lo marco como opcional
-    age: number;
+    age?: number;
     height_cm?: number; // El valor puede ser null, así que lo marco como opcional
     weight_kg?: number; // El valor puede ser null, así que lo marco como opcional
     preferred_foot?: string; // El valor puede ser null, así que lo marco como opcional

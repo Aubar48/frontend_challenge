@@ -96,7 +96,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         { text: 'Male Fifa', route: '/homeMale' },
         { text: 'Female Fifa', route: '/homeFemale' },
         { text: 'Contact', route: '/contact' },
-        { text: 'Create', route: '/create-player' },
         { text: 'Logout', event: () => this.logout() }
       ];
     } else {

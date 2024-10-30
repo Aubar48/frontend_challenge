@@ -140,6 +140,10 @@ export class MaleMainComponent implements OnInit, OnDestroy {
     this.router.navigate(['/players', playerId]);
   }
 
+  goToCreatePlayer() {
+    this.router.navigate(['/players/create']); // Ajusta la ruta según tu configuración
+  }
+
   borrar(playerId: number): void {
     this.cardMaleService.deleteCardMale(playerId).subscribe({
       next: () => {

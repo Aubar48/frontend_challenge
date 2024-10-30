@@ -133,6 +133,10 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
     this.router.navigate(['/female', femaleId]);
   }
 
+  goToCreatePlayer() {
+    this.router.navigate(['/female/create']); // Ajusta la ruta según tu configuración
+  }
+
   borrar(femaleId: number): void {
     this.cardFemaleService.deleteCardFemale(femaleId).subscribe({
       next: () => {
