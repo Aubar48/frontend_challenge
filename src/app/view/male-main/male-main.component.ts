@@ -61,7 +61,6 @@ export class MaleMainComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.cardMaleService.getCardMale(1, 1000).subscribe({
         next: res => {
-          console.log('Respuesta del servicio:', res);
           if (Array.isArray(res)) {
             this.playerCardModel = res;
             this.filteredPlayerCardModel = res;

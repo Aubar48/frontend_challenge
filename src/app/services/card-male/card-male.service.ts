@@ -22,7 +22,6 @@ export class CardMaleService {
     // Verifica que 'window' esté definido (solo en el navegador)
     if (typeof window !== 'undefined') {
       const authToken = localStorage.getItem('authToken') || '';
-      console.log('Token de autenticación:', authToken);
 
       httpHeaders = httpHeaders.set('Authorization', `Bearer ${authToken}`);
     }

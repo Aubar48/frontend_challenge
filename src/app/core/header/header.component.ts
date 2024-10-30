@@ -6,6 +6,7 @@ import { BurgerMenuElementoComponent } from './burger-menu-elemento/burger-menu-
 import { MenuItem } from '../../models/menu-item.model';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -18,17 +19,17 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   private platformId: Object;
   private resizeListener: () => void;
+  private authSubscription: Subscription = new Subscription(); // Suscripción para autenticación
   
   isAuthenticated: boolean = false; // Estado de autenticación
+  menuItems: MenuItem[] = []; // Inicializamos el arreglo vacío
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
     private themeService: ThemeService,
     private loginService: LoginService,
-    private router: Router, // Inyecta el Router
-    private cdr: ChangeDetectorRef // Inyecta ChangeDetectorRef
-
-
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
     this.platformId = platformId;
     this.resizeListener = this.onResize.bind(this);
@@ -46,6 +47,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('resize', this.resizeListener);
     }
+    this.authSubscription.unsubscribe(); // Cancelar la suscripción al destruir el componente
   }
 
   initModo() {
@@ -88,8 +90,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  menuItems: MenuItem[] = []; // Inicializamos el arreglo vacío
-
   updateMenuItems() {
     if (this.isAuthenticated) {
       this.menuItems = [
@@ -109,14 +109,11 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
       ];
     }
     this.cdr.detectChanges(); // Forzar detección de cambios
-
   }
   
   checkAuthentication() {
-    this.loginService.isAuthenticated() 
-    this.isAuthenticated = true;
-    this.updateMenuItems();
-
+    this.isAuthenticated = this.loginService.isAuthenticated(); // Verifica la autenticación
+    this.updateMenuItems(); // Actualiza el menú según el estado de autenticación
   }
 
   logout() {
@@ -124,6 +121,5 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     this.isAuthenticated = false; // Actualiza el estado de autenticación
     this.updateMenuItems(); // Actualiza el menú después de cerrar sesión
     this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
-
   }
 }

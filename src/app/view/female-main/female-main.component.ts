@@ -59,7 +59,6 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.cardFemaleService.getCardFemale(page, 1000).subscribe({
         next: res => {
-          console.log('Respuesta del servicio:', res);
           if (Array.isArray(res)) {
             this.playerCardModel = res;
             this.filteredPlayerCardModel = res;
@@ -72,8 +71,6 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
               queryParams: { search: this.currentSearchTerm }, // Solo mantiene el término de búsqueda
               queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
             });
-          } else {
-            console.warn('La respuesta no es un array:', res);
           }
         },
         error: error => {

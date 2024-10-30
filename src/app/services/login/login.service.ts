@@ -1,40 +1,44 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Auth } from '../../models/auth.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private apiUrl = 'http://localhost:3000/auth/login'; 
+  private authenticatedSource = new BehaviorSubject<boolean>(this.isAuthenticated());
+  authenticated$ = this.authenticatedSource.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object // Inyecta PLATFORM_ID
+  ) {}
 
   loginUser(userData: Auth): Observable<any> {
     return this.http.post<{ token: string }>(this.apiUrl, userData).pipe(
       tap(response => {
-        console.log('Respuesta del servidor:', response); // Verifica la respuesta
         if (response && response.token) {
-          // Guarda el token en localStorage
           localStorage.setItem('authToken', response.token);
-          console.log('Token guardado en localStorage:', response.token);
-        } else {
-          console.log('No se recibió un token en la respuesta.');
+          this.authenticatedSource.next(true); // Emitir nuevo estado de autenticación
         }
       })
     );
   }
 
-  // Método para cerrar sesión y eliminar el token
   logout(): void {
     localStorage.removeItem('authToken');
-    console.log('Token eliminado de localStorage');
+    this.authenticatedSource.next(false); // Emitir nuevo estado de autenticación
   }
 
-  // Método para verificar si el usuario está autenticado
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('authToken');
+    // Solo verifica el localStorage si estamos en el navegador
+    if (isPlatformBrowser(this.platformId)) {
+      return !!localStorage.getItem('authToken');
+    }
+    return false; // No estamos en el navegador
   }
 }

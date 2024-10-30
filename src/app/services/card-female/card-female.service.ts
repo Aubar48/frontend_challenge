@@ -29,7 +29,7 @@ export class CardFemaleService {
   }
 
   // Obtener todas las jugadoras, transformando la respuesta para mayor flexibilidad
-  getCardFemale(page: number = 1, limit: number = 10): Observable<PlayerCardModel[]> {
+  getCardFemale(page: number = 1, limit: number = 100): Observable<PlayerCardModel[]> {
     const params = `?page=${page}&limit=${limit}`;
     return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
       map(response => Object.values(response.players))

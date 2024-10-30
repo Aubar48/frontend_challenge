@@ -1,8 +1,8 @@
 <div class="container">
   <div class="card">
-    <div class="card__content">
+    <div *ngIf="playerCard || null" class="card__content">
       <form (ngSubmit)="onUpdate()" #playerForm="ngForm">
-        <div class="form-group">
+        <div  class="form-group">
           <label for="fifa_version">Fifa version:</label>
           <input type="text" [(ngModel)]="playerCard.fifa_version" name="fifa_version" id="fifa_version" />
         </div>
