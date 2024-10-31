@@ -62,7 +62,16 @@
       <p>Atajadas (reflejos): {{ playerCard?.goalkeeping_reflexes !== undefined ? playerCard?.goalkeeping_reflexes : 'No disponible' }}</p>
       <p>Atajadas (velocidad): {{ playerCard?.goalkeeping_speed !== undefined ? playerCard?.goalkeeping_speed : 'No disponible' }}</p>
 
-        
+      <section *ngIf="playerCard" class="charts-css bar show-heading show-labels show-data-on-hover">
+        <div class="charts-css-bar">
+          <div class="data" style="--size: {{ playerCard.pace }}"></div>
+          <div class="data" style="--size: {{ playerCard.shooting  }}"></div>
+          <div class="data" style="--size: {{ playerCard.passing  }}"></div>
+          <div class="data" style="--size: {{ playerCard.dribbling }}"></div>
+          <div class="data" style="--size: {{ playerCard.defending  }}"></div>
+          <div class="data" style="--size: {{ playerCard.physic }}"></div>
+        </div>
+      </section>
 
 
       <div class="card__button">

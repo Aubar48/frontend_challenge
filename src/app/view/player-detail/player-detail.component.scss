@@ -1,9 +1,7 @@
-
 /* Estilos generales */
 img {
   max-width: 100%;
 }
-
 
 .card {
   position: relative;
@@ -33,7 +31,7 @@ img {
 }
 
 .card__image {
-  height:auto; /* Ajusta la altura de la imagen para que sea consistente */
+  height: auto; /* Ajusta la altura de la imagen para que sea consistente */
   width: 100%;
   object-fit: cover; /* Escala la imagen para llenar el espacio sin deformarse */
   opacity: 0;
@@ -49,24 +47,25 @@ img {
 }
 
 .card__content {
-  flex:auto; /* Hace que el contenido ocupe el espacio restante */
+  flex: auto; /* Hace que el contenido ocupe el espacio restante */
   display: flex;
   flex-direction: column;
-  justify-content:end;
+  justify-content: end;
   align-self: start;
   margin-top: -1rem;
   opacity: 0;
   animation: ContentFadeIn 0.8s 1.6s forwards;
   gap: 5px;
   width: 100%;
-
 }
-.card__button{
+
+.card__button {
   display: flex;
   flex-direction: column;
   gap: 5px;
   width: 100%;
 }
+
 .card__button button {
   background-color: #444;
   color: #fff;
@@ -125,45 +124,53 @@ img {
   font-size: 18px;
 }
 
-/* Responsividad específica */
+.charts-css {
+  margin-top: 20px;
+}
 
-/* Para móviles */
+.charts-css-bar {
+  display: flex;
+  flex-direction: column;
+}
+
+.data {
+  height: 20px; /* Altura de las barras */
+  background: #28a745; /* Color verde para las barras */
+  margin: 5px 0; /* Espaciado entre las barras */
+}
+
+/* Responsividad */
 @media only screen and (max-width: 600px) {
-  .card__image {
-    height:200px;
-    
-  }
   .card {
     width: 100%;
     padding: 1rem;
     margin-bottom: 15px;
   }
-}
 
-/* Para tablets */
-@media only screen and (min-width: 600px) and (max-width: 992px) {
   .card__image {
-    height:200px;
-    
+    height: 200px;
   }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 992px) {
   .card {
     width: 100%;
     padding: 1.5rem;
   }
+
+  .card__image {
+    height: 200px;
+  }
 }
 
-/* Para escritorio */
 @media only screen and (min-width: 992px) {
-  
   .card {
     width: 100%;
     padding: 1.5rem;
   }
 }
 
-/* Para resoluciones medias entre 992px y 1200px */
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
-  
   .card {
     padding: 1rem;
   }
