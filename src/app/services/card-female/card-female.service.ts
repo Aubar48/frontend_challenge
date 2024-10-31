@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PlayerCardModel } from '../../models/player-card.model';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import Papa from 'papaparse';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,30 @@ export class CardFemaleService {
     return this.httpClient.get<{ players: PlayerCardModel[] }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
       map(response => response.players)
     );
+  }
+  downloadCSV(): void {
+    this.httpClient.get<PlayerCardModel[]>(`${this.apiUrl}`, this.getHttpOptions())
+      .pipe(
+        catchError(error => {
+          console.error('Error al descargar los datos', error);
+          return throwError(error);
+        })
+      )
+      .subscribe((players) => {
+        console.log(players); // Agrega esta línea para verificar la respuesta
+        if (players.length === 0) {
+          console.error('No se encontraron jugadores.');
+          return;
+        }
+        const csvData = Papa.unparse(players); // Convierte los datos a CSV
+        const blob = new Blob([csvData], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'players.csv'; // Nombre del archivo
+        a.click();
+        window.URL.revokeObjectURL(url); // Liberar el objeto URL
+        // Aquí podrías mostrar una notificación de éxito
+      });
   }
 }

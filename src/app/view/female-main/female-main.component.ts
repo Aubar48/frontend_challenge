@@ -152,6 +152,9 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   editar(female: PlayerCardModel): void {
     this.router.navigate(['/female/edit', female.id]);
   }
+  onDownloadCSV(): void {
+    this.cardFemaleService.downloadCSV();
+  }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

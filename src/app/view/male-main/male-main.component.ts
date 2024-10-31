@@ -28,6 +28,7 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   totalPages: number = 0;
 
   subscription = new Subscription();
+  http: any;
 
   constructor(
     private cardMaleService: CardMaleService,
@@ -159,6 +160,12 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   editar(player: PlayerCardModel): void {
     this.router.navigate(['/players/edit', player.id]);
   }
+
+  // Método para invocar la descarga de CSV
+  onDownloadCSV(): void {
+    this.cardMaleService.downloadCSV();
+  }
+
   
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
