@@ -1,6 +1,6 @@
 import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Auth } from '../../models/auth.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
@@ -17,6 +17,21 @@ export class LoginService {
     private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: Object // Inyecta PLATFORM_ID
   ) {}
+
+  private getHttpOptions() {
+    let httpHeaders = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache'
+    });
+
+    // Verifica que 'window' esté definido (solo en el navegador)
+    if (isPlatformBrowser(this.platformId)) {
+      const authToken = localStorage.getItem('authToken') || '';
+      httpHeaders = httpHeaders.set('Authorization', `Bearer ${authToken}`);
+    }
+
+    return { headers: httpHeaders };
+  }
 
   loginUser(userData: Auth): Observable<any> {
     return this.http.post<{ token: string }>(this.apiUrl, userData).pipe(
@@ -35,10 +50,11 @@ export class LoginService {
   }
 
   isAuthenticated(): boolean {
-    // Solo verifica el localStorage si estamos en el navegador
     if (isPlatformBrowser(this.platformId)) {
-      return !!localStorage.getItem('authToken');
+      const token = localStorage.getItem('authToken');
+      return !!token; // Devuelve true si hay un token
     }
     return false; // No estamos en el navegador
   }
+  
 }
