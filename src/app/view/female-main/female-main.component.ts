@@ -156,6 +156,9 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
     this.cardFemaleService.downloadCSV();
   }
 
+  onconvertCsvToExcel(): void {
+    this.cardFemaleService.convertCsvToExcel();
+  }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

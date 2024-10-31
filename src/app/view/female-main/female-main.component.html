@@ -1,29 +1,21 @@
 <!-- Usar el componente de búsqueda -->
 <app-player-search (searchTermChange)="onSearchTermChange($event)"></app-player-search>
-
 <!-- Usar el componente de paginación -->
-<app-pagination 
-  [currentPage]="currentPage" 
-  [totalPages]="totalPages" 
-  (pageChange)="changePage($event)">
+<app-pagination [currentPage]="currentPage" [totalPages]="totalPages" (pageChange)="changePage($event)">
 </app-pagination>
 <!-- Botón para crear un nuevo jugador -->
-<button (click)="goToCreatePlayer()">Crear Jugador/a</button>
+<button class="create-button" (click)="goToCreatePlayer()">Crear Jugador/a</button>
 <!-- Botón para descargar CSV -->
-<button (click)="onDownloadCSV()">Descargar CSV</button>
-
+<button class="download-button" (click)="onDownloadCSV()">Descargar CSV</button>
+<!-- Botón para convertir CSV en XLSX -->
+<button class="convert-button" (click)="onconvertCsvToExcel()">Convertir CSV en XLSX</button>
 <div class="container">
   <!-- Mensaje cuando no hay jugadores filtrados -->
   <div *ngIf="!filteredPlayerCardModel || filteredPlayerCardModel.length === 0" class="no-results">
     <p>No se encontraron jugadores.</p>
   </div>
-
   <!-- Lista de tarjetas de jugadores -->
-  <app-player-card 
-    *ngFor="let card of filteredPlayerCardModel" 
-    [playerCard]="card"
-    (deletePlayer)="borrar(card.id)"
-    (editPlayer)="editar(card)" 
-    (viewMore)="verMas(card.id)">
+  <app-player-card *ngFor="let card of filteredPlayerCardModel" [playerCard]="card" (deletePlayer)="borrar(card.id)"
+    (editPlayer)="editar(card)" (viewMore)="verMas(card.id)">
   </app-player-card>
 </div>

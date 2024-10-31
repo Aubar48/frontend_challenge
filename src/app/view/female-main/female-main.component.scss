@@ -9,6 +9,51 @@
   flex-direction: row;
   gap: 20px;
 }
+
+/* Botones generales */
+button {
+  background-color: #6c757d; /* Gris medio */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+/* Color de fondo más oscuro al pasar el cursor */
+button:hover {
+  background-color: #5a6268; /* Gris oscuro */
+}
+
+/* Estilos específicos para el botón de crear jugador */
+button.create-button {
+  background-color: #5e6c84; /* Gris azulado */
+}
+
+button.create-button:hover {
+  background-color: #4a5363; /* Gris azulado oscuro */
+}
+
+/* Estilos específicos para el botón de descargar CSV */
+button.download-button {
+  background-color: #8a8f98; /* Gris claro */
+}
+
+button.download-button:hover {
+  background-color: #72787f; /* Gris medio */
+}
+
+/* Estilos específicos para el botón de convertir a Excel */
+button.convert-button {
+  background-color: #7b7e83; /* Gris con un toque de azul oscuro */
+}
+
+button.convert-button:hover {
+  background-color: #62666b; /* Gris azulado oscuro */
+}
+
 /* Para móviles */
 @media only screen and (max-width: 600px) {
   .container {

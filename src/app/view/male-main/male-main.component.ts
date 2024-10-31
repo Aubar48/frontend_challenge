@@ -165,7 +165,9 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   onDownloadCSV(): void {
     this.cardMaleService.downloadCSV();
   }
-
+  onconvertCsvToExcel(): void {
+    this.cardMaleService.convertCsvToExcel();
+  }
   
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

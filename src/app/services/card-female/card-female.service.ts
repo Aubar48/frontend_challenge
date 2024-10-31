@@ -64,29 +64,37 @@ export class CardFemaleService {
       map(response => response.players)
     );
   }
+  // Función para descargar los datos de jugadores como CSV
   downloadCSV(): void {
-    this.httpClient.get<PlayerCardModel[]>(`${this.apiUrl}`, this.getHttpOptions())
-      .pipe(
-        catchError(error => {
-          console.error('Error al descargar los datos', error);
-          return throwError(error);
-        })
-      )
-      .subscribe((players) => {
-        console.log(players); // Agrega esta línea para verificar la respuesta
-        if (players.length === 0) {
-          console.error('No se encontraron jugadores.');
-          return;
-        }
-        const csvData = Papa.unparse(players); // Convierte los datos a CSV
-        const blob = new Blob([csvData], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'players.csv'; // Nombre del archivo
-        a.click();
-        window.URL.revokeObjectURL(url); // Liberar el objeto URL
-        // Aquí podrías mostrar una notificación de éxito
-      });
-  }
+    this.httpClient.get(`${this.apiUrl}/download/csv`, {
+      ...this.getHttpOptions(),
+      responseType: 'blob'  // Esto asegura que recibimos el archivo como un blob
+    }).subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'players.csv';
+      a.click();
+      window.URL.revokeObjectURL(url);  // Liberar el objeto URL
+    }, error => {
+      console.error('Error al descargar el archivo CSV', error);
+    });
+}
+
+ // Convertir CSV a Excel y descargar el archivo
+ convertCsvToExcel(): void {
+  this.httpClient.get(`${this.apiUrl}/convert/csv-to-excel`, { 
+    ...this.getHttpOptions(),
+    responseType: 'blob' 
+  }).subscribe(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'players.xlsx';
+    a.click();
+    window.URL.revokeObjectURL(url);  // Liberar el objeto URL
+  }, error => {
+    console.error('Error al descargar el archivo Excel', error);
+  });
+}
 }
