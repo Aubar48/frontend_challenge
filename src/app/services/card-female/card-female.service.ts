@@ -73,7 +73,7 @@ export class CardFemaleService {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'players.csv';
+      a.download = 'playersFemale.csv';
       a.click();
       window.URL.revokeObjectURL(url);  // Liberar el objeto URL
     }, error => {
@@ -90,7 +90,7 @@ export class CardFemaleService {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'players.xlsx';
+    a.download = 'playersFemale.xlsx';
     a.click();
     window.URL.revokeObjectURL(url);  // Liberar el objeto URL
   }, error => {
