@@ -15,14 +15,13 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.scss'],
   imports: [MenuElementoComponent, BurgerMenuElementoComponent]
 })
-
 export class HeaderComponent implements AfterViewInit, OnDestroy {
   private platformId: Object;
   private resizeListener: () => void;
-  private authSubscription: Subscription = new Subscription(); // Suscripción para autenticación
+  private authSubscription: Subscription = new Subscription();
   
-  isAuthenticated: boolean = false; // Estado de autenticación
-  menuItems: MenuItem[] = []; // Inicializamos el arreglo vacío
+  isAuthenticated: boolean = false;
+  menuItems: MenuItem[] = [];
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
@@ -39,7 +38,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       this.initModo();
       window.addEventListener('resize', this.resizeListener);
-      this.checkAuthentication(); // Verificar autenticación al cargar el componente
+      this.checkAuthentication();
     }
   }
 
@@ -47,7 +46,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
     if (isPlatformBrowser(this.platformId)) {
       window.removeEventListener('resize', this.resizeListener);
     }
-    this.authSubscription.unsubscribe(); // Cancelar la suscripción al destruir el componente
+    this.authSubscription.unsubscribe();
   }
 
   initModo() {
@@ -107,18 +106,18 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
         { text: 'Contact', route: '/contact' }
       ];
     }
-    this.cdr.detectChanges(); // Forzar detección de cambios
+    this.cdr.detectChanges();
   }
-  
+
   checkAuthentication() {
-    this.isAuthenticated = this.loginService.isAuthenticated(); // Verifica la autenticación
-    this.updateMenuItems(); // Actualiza el menú según el estado de autenticación
+    this.authSubscription = this.loginService.authenticated$.subscribe(isAuthenticated => {
+      this.isAuthenticated = isAuthenticated;
+      this.updateMenuItems();
+    });
   }
 
   logout() {
-    this.loginService.logout(); // Cerrar sesión y eliminar el token
-    this.isAuthenticated = false; // Actualiza el estado de autenticación
-    this.updateMenuItems(); // Actualiza el menú después de cerrar sesión
-    this.router.navigate(['/login']); // Redirige a la página de inicio de sesión
+    this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }
