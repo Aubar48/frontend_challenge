@@ -4,6 +4,10 @@ header {
     align-items: center; /* Alinear verticalmente los elementos al centro */
     justify-content: space-between; /* Distribuir los elementos con espacio entre ellos */
   }
+
+  .spotify-player{
+    padding-top: 30px;
+  }
   
   /* Estilo para el logo en el header */
   .logo {
@@ -144,6 +148,7 @@ header {
     transform: translateX(8px); /* Mover el círculo a la derecha */
   }
   
+  
   /* Estilos específicos para pantallas pequeñas (móviles) */
   @media only screen and (max-width: 600px) {
     .menu {
@@ -155,6 +160,9 @@ header {
     .mobile-menu {
       display: none; /* Ocultar el menú móvil por defecto */
     }
+    .spotify-player {
+      display: none;
+    }
   }
   
   /* Estilos para pantallas medianas (tablets) */
@@ -164,6 +172,9 @@ header {
     }
     .hamburger-menu {
       display: block; /* Mostrar el menú hamburguesa en pantallas medianas */
+    }
+    .spotify-player {
+      width: 200px;
     }
   }
   
