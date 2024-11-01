@@ -1,82 +1,71 @@
 <div class="container">
-
   <div class="card">
     <div class="card__image-container">
       <img class="card__image" [src]="playerCard?.player_face_url"
         alt="{{ playerCard?.long_name || 'Nombre no disponible' }}">
+      <h1 class="card__title">{{ playerCard?.long_name || 'Nombre no disponible' }}</h1>
     </div>
 
-    <svg class="card__svg" viewBox="0 0 800 500">
-      <path d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400 L 800 500 L 0 500"
-        stroke="transparent" fill="#333"></path>
-      <path class="card__line"
-        d="M 0 100 Q 50 200 100 250 Q 250 400 350 300 C 400 250 550 150 650 300 Q 750 450 800 400" stroke="pink"
-        stroke-width="3" fill="transparent"></path>
-    </svg>
-
     <div class="card__content">
-      <h1 class="card__title">{{ playerCard?.long_name || 'Nombre no disponible' }}</h1>
-      <p>Club: {{ playerCard?.club_name || 'No disponible' }}</p>
-      <p>Nacionalidad: {{ playerCard?.nationality_name || 'No disponible' }}</p>
-      <p>Posición: {{ playerCard?.player_positions || 'No disponible' }}</p>
-      <p>Overall: {{ playerCard?.overall !== undefined ? playerCard?.overall : 'No disponible' }}</p>
-      <p>Potencial: {{ playerCard?.potential !== undefined ? playerCard?.potential : 'No disponible' }}</p>
-      <p>Valor (€): {{ playerCard?.value_eur !== undefined ? playerCard?.value_eur : 'No disponible' }}</p>
-      <p>Sueldo (€): {{ playerCard?.wage_eur !== undefined ? playerCard?.wage_eur : 'No disponible' }}</p>
-      <p>Edad: {{ playerCard?.age !== undefined ? playerCard?.age : 'No disponible' }}</p>
-      <p>Altura (cm): {{ playerCard?.height_cm !== undefined ? playerCard?.height_cm : 'No disponible' }}</p>
-      <p>Peso (kg): {{ playerCard?.weight_kg !== undefined ? playerCard?.weight_kg : 'No disponible' }}</p>
-      <p>Pierna preferida: {{ playerCard?.preferred_foot || 'No disponible' }}</p>
-      <p>Puntos débiles: {{ playerCard?.weak_foot !== undefined ? playerCard?.weak_foot : 'No disponible' }}</p>
-      <p>Habilidades: {{ playerCard?.skill_moves !== undefined ? playerCard?.skill_moves : 'No disponible' }}</p>
-      <p>Reputación internacional: {{ playerCard?.international_reputation !== undefined ?
-        playerCard?.international_reputation : 'No disponible' }}</p>
-      <p>Trabajo: {{ playerCard?.work_rate || 'No disponible' }}</p>
-      <p>Tipo de cuerpo: {{ playerCard?.body_type || 'No disponible' }}</p>
-      <p>Pace: {{ playerCard?.pace !== undefined ? playerCard?.pace : 'No disponible' }}</p>
-      <p>Shooting: {{ playerCard?.shooting !== undefined ? playerCard?.shooting : 'No disponible' }}</p>
-      <p>Passing: {{ playerCard?.passing !== undefined ? playerCard?.passing : 'No disponible' }}</p>
-      <p>Dribbling: {{ playerCard?.dribbling !== undefined ? playerCard?.dribbling : 'No disponible' }}</p>
-      <p>Defending: {{ playerCard?.defending !== undefined ? playerCard?.defending : 'No disponible' }}</p>
-      <p>Physic: {{ playerCard?.physic !== undefined ? playerCard?.physic : 'No disponible' }}</p>
-      <p>Agresividad: {{ playerCard?.mentality_aggression !== undefined ? playerCard?.mentality_aggression : 'No disponible' }}</p>
-      <p>Intercepciones: {{ playerCard?.mentality_interceptions !== undefined ? playerCard?.mentality_interceptions :
-        'No disponible' }}</p>
-      <p>Posicionamiento: {{ playerCard?.mentality_positioning !== undefined ? playerCard?.mentality_positioning : 'No disponible' }}</p>
-      <p>Visión: {{ playerCard?.mentality_vision !== undefined ? playerCard?.mentality_vision : 'No disponible' }}</p>
-      <p>Penales: {{ playerCard?.mentality_penalties !== undefined ? playerCard?.mentality_penalties : 'No disponible'
-        }}</p>
-      <p>Composure: {{ playerCard?.mentality_composure !== undefined ? playerCard?.mentality_composure : 'No disponible'
-        }}</p>
-      <p>Marca: {{ playerCard?.defending_marking !== undefined ? playerCard?.defending_marking : 'No disponible' }}</p>
-      <p>Tackle (de pie): {{ playerCard?.defending_standing_tackle !== undefined ? playerCard?.defending_standing_tackle
-        : 'No disponible' }}</p>
-      <p>Tackle (deslizante): {{ playerCard?.defending_sliding_tackle !== undefined ?
-        playerCard?.defending_sliding_tackle : 'No disponible' }}</p>
-      <p>Atajadas (buceo): {{ playerCard?.goalkeeping_diving !== undefined ? playerCard?.goalkeeping_diving : 'No disponible' }}</p>
-      <p>Atajadas (manejando): {{ playerCard?.goalkeeping_handling !== undefined ? playerCard?.goalkeeping_handling :
-        'No disponible' }}</p>
-      <p>Atajadas (pateando): {{ playerCard?.goalkeeping_kicking !== undefined ? playerCard?.goalkeeping_kicking : 'No disponible' }}</p>
-      <p>Atajadas (posicionamiento): {{ playerCard?.goalkeeping_positioning !== undefined ?
-        playerCard?.goalkeeping_positioning : 'No disponible' }}</p>
-      <p>Atajadas (reflejos): {{ playerCard?.goalkeeping_reflexes !== undefined ? playerCard?.goalkeeping_reflexes : 'No disponible' }}</p>
-      <p>Atajadas (velocidad): {{ playerCard?.goalkeeping_speed !== undefined ? playerCard?.goalkeeping_speed : 'No disponible' }}</p>
-
-      <section *ngIf="playerCard" class="charts-css bar show-heading show-labels show-data-on-hover">
-        <div class="charts-css-bar">
-          <div class="data" style="--size: {{ playerCard.pace }}"></div>
-          <div class="data" style="--size: {{ playerCard.shooting  }}"></div>
-          <div class="data" style="--size: {{ playerCard.passing  }}"></div>
-          <div class="data" style="--size: {{ playerCard.dribbling }}"></div>
-          <div class="data" style="--size: {{ playerCard.defending  }}"></div>
-          <div class="data" style="--size: {{ playerCard.physic }}"></div>
+      <div class="card__info-container">
+        <!-- Información del jugador en la columna izquierda -->
+        <div class="card__info">
+          <p><strong>Club:</strong> {{ playerCard?.club_name || 'No disponible' }}</p>
+          <p><strong>Nacionalidad:</strong> {{ playerCard?.nationality_name || 'No disponible' }}</p>
+          <p><strong>Posición:</strong> {{ playerCard?.player_positions || 'No disponible' }}</p>
+          <p><strong>Overall:</strong> {{ playerCard?.overall ?? 'No disponible' }}</p>
+          <p><strong>Potencial:</strong> {{ playerCard?.potential ?? 'No disponible' }}</p>
+          <p><strong>Valor (€):</strong> {{ playerCard?.value_eur ?? 'No disponible' }}</p>
+          <p><strong>Sueldo (€):</strong> {{ playerCard?.wage_eur ?? 'No disponible' }}</p>
+          <p><strong>Edad:</strong> {{ playerCard?.age ?? 'No disponible' }}</p>
+          <p><strong>Altura (cm):</strong> {{ playerCard?.height_cm ?? 'No disponible' }}</p>
+          <p><strong>Peso (kg):</strong> {{ playerCard?.weight_kg ?? 'No disponible' }}</p>
+          <p><strong>Pierna preferida:</strong> {{ playerCard?.preferred_foot || 'No disponible' }}</p>
+          <p><strong>Puntos débiles:</strong> {{ playerCard?.weak_foot ?? 'No disponible' }}</p>
+          <p><strong>Habilidades:</strong> {{ playerCard?.skill_moves ?? 'No disponible' }}</p>
+          <p><strong>Reputación internacional:</strong> {{ playerCard?.international_reputation ?? 'No disponible' }}
+          </p>
+          <p><strong>Trabajo:</strong> {{ playerCard?.work_rate || 'No disponible' }}</p>
+          <p><strong>Tipo de cuerpo:</strong> {{ playerCard?.body_type || 'No disponible' }}</p>
+          <p><strong>Pace:</strong> {{ playerCard?.pace ?? 'No disponible' }}</p>
+          <p><strong>Shooting:</strong> {{ playerCard?.shooting ?? 'No disponible' }}</p>
+          <p><strong>Passing:</strong> {{ playerCard?.passing ?? 'No disponible' }}</p>
+          <p><strong>Dribbling:</strong> {{ playerCard?.dribbling ?? 'No disponible' }}</p>
+          <p><strong>Defending:</strong> {{ playerCard?.defending ?? 'No disponible' }}</p>
+          <p><strong>Physic:</strong> {{ playerCard?.physic ?? 'No disponible' }}</p>
+          <p><strong>Agresividad:</strong> {{ playerCard?.mentality_aggression ?? 'No disponible' }}</p>
+          <p><strong>Intercepciones:</strong> {{ playerCard?.mentality_interceptions ?? 'No disponible' }}</p>
+          <p><strong>Posicionamiento:</strong> {{ playerCard?.mentality_positioning ?? 'No disponible' }}</p>
+          <p><strong>Visión:</strong> {{ playerCard?.mentality_vision ?? 'No disponible' }}</p>
+          <p><strong>Penales:</strong> {{ playerCard?.mentality_penalties ?? 'No disponible' }}</p>
+          <p><strong>Composure:</strong> {{ playerCard?.mentality_composure ?? 'No disponible' }}</p>
+          <p><strong>Marca:</strong> {{ playerCard?.defending_marking ?? 'No disponible' }}</p>
+          <p><strong>Tackle (de pie):</strong> {{ playerCard?.defending_standing_tackle ?? 'No disponible' }}</p>
+          <p><strong>Tackle (deslizante):</strong> {{ playerCard?.defending_sliding_tackle ?? 'No disponible' }}</p>
+          <p><strong>Atajadas (buceo):</strong> {{ playerCard?.goalkeeping_diving ?? 'No disponible' }}</p>
+          <p><strong>Atajadas (manejando):</strong> {{ playerCard?.goalkeeping_handling ?? 'No disponible' }}</p>
+          <p><strong>Atajadas (pateando):</strong> {{ playerCard?.goalkeeping_kicking ?? 'No disponible' }}</p>
+          <p><strong>Atajadas (posicionamiento):</strong> {{ playerCard?.goalkeeping_positioning ?? 'No disponible' }}
+          </p>
+          <p><strong>Atajadas (reflejos):</strong> {{ playerCard?.goalkeeping_reflexes ?? 'No disponible' }}</p>
+          <p><strong>Atajadas (velocidad):</strong> {{ playerCard?.goalkeeping_speed ?? 'No disponible' }}</p>
         </div>
-      </section>
 
+        <!-- Gráfico de radar en la columna derecha -->
+        <div class="card__radar">
+          <canvas id="radarChart"></canvas>
+          <!-- Gráfico de barras debajo del radar -->
+          <div class="card__bar-chart">
+            <canvas id="barChart"></canvas>
+          </div>
 
+        </div>
+      </div>
+
+      <!-- Botones de acción -->
       <div class="card__button">
         <button (click)="onDelete()">Borrar</button>
-        <button (click)="goBack()">Back</button> <!-- Nuevo botón para volver -->
+        <button (click)="goBack()">Back</button>
       </div>
     </div>
   </div>
