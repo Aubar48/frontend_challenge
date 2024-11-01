@@ -2,362 +2,383 @@
   <div class="card">
     <div *ngIf="playerCard || null" class="card__content">
       <form (ngSubmit)="onUpdate()" #playerForm="ngForm">
-        <div  class="form-group">
-          <label for="fifa_version">Fifa version:</label>
-          <input type="text" [(ngModel)]="playerCard.fifa_version" name="fifa_version" id="fifa_version" />
-        </div>
+        <div class="card__content__box">
 
-        <div class="form-group">
-          <label for="fifa_update">Fifa update:</label>
-          <input type="text" [(ngModel)]="playerCard.fifa_update" name="fifa_update" id="fifa_update" />
-        </div>
 
-        <div class="form-group">
-          <label for="player_face_url">Player face url:</label>
-          <input type="text" [(ngModel)]="playerCard.player_face_url" name="player_face_url" id="player_face_url"
-            required />
-          <div *ngIf="playerForm.submitted && !playerCard.player_face_url" class="error-message">
-            La foto es obligatoria.
+          <div class="card__content2">
+            <div class="form-group">
+              <label for="fifa_version">Fifa version:</label>
+              <input type="text" [(ngModel)]="playerCard.fifa_version" name="fifa_version" id="fifa_version" />
+            </div>
+
+            <div class="form-group">
+              <label for="fifa_update">Fifa update:</label>
+              <input type="text" [(ngModel)]="playerCard.fifa_update" name="fifa_update" id="fifa_update" />
+            </div>
+
+            <div class="form-group">
+              <label for="player_face_url">Player face url:</label>
+              <input type="text" [(ngModel)]="playerCard.player_face_url" name="player_face_url" id="player_face_url"
+                required />
+              <div *ngIf="playerForm.submitted && !playerCard.player_face_url" class="error-message">
+                La foto es obligatoria.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="long_name">Nombre:</label>
+              <input type="text" [(ngModel)]="playerCard.long_name" name="long_name" id="long_name" required />
+              <div *ngIf="playerForm.submitted && !playerCard.long_name" class="error-message">
+                El nombre es obligatorio.
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="player_positions">Posición:</label>
+              <input type="text" [(ngModel)]="playerCard.player_positions" name="player_positions"
+                id="player_positions" />
+            </div>
+
+            <div class="form-group">
+              <label for="club_name">Club:</label>
+              <input type="text" [(ngModel)]="playerCard.club_name" name="club_name" id="club_name" />
+            </div>
+
+            <div class="form-group">
+              <label for="nationality_name">Nacionalidad:</label>
+              <input type="text" [(ngModel)]="playerCard.nationality_name" name="nationality_name"
+                id="nationality_name" />
+            </div>
+
+            <div class="form-group">
+              <label for="age">Edad:</label>
+              <input type="number" [(ngModel)]="playerCard.age" name="age" id="age" />
+            </div>
+
+            <div class="form-group">
+              <label for="height_cm">Altura (cm):</label>
+              <input type="number" [(ngModel)]="playerCard.height_cm" name="height_cm" id="height_cm" />
+            </div>
+
+            <div class="form-group">
+              <label for="weight_kg">Peso (kg):</label>
+              <input type="number" [(ngModel)]="playerCard.weight_kg" name="weight_kg" id="weight_kg" />
+            </div>
+
+          </div>
+
+          <div class="card__content2">
+
+            <div class="form-group">
+              <label for="preferred_foot">Pie Preferido:</label>
+              <input type="text" [(ngModel)]="playerCard.preferred_foot" name="preferred_foot" id="preferred_foot" />
+            </div>
+
+            <div class="form-group">
+              <label for="weak_foot">Pie Débil:</label>
+              <input type="number" [(ngModel)]="playerCard.weak_foot" name="weak_foot" id="weak_foot" />
+            </div>
+
+            <div class="form-group">
+              <label for="skill_moves">Movimientos de Habilidad:</label>
+              <input type="number" [(ngModel)]="playerCard.skill_moves" name="skill_moves" id="skill_moves" />
+            </div>
+
+            <div class="form-group">
+              <label for="overall">Valoración General:</label>
+              <input type="number" [(ngModel)]="playerCard.overall" name="overall" id="overall" />
+            </div>
+
+            <div class="form-group">
+              <label for="potential">Potencial:</label>
+              <input type="number" [(ngModel)]="playerCard.potential" name="potential" id="potential" />
+            </div>
+
+            <div class="form-group">
+              <label for="value_eur">Valor (EUR):</label>
+              <input type="number" [(ngModel)]="playerCard.value_eur" name="value_eur" id="value_eur" />
+            </div>
+
+            <div class="form-group">
+              <label for="wage_eur">Salario (EUR):</label>
+              <input type="number" [(ngModel)]="playerCard.wage_eur" name="wage_eur" id="wage_eur" />
+            </div>
+
+            <div class="form-group">
+              <label for="international_reputation">Reputación Internacional:</label>
+              <input type="number" [(ngModel)]="playerCard.international_reputation" name="international_reputation"
+                id="international_reputation" />
+            </div>
+
+            <div class="form-group">
+              <label for="work_rate">Tasa de Trabajo:</label>
+              <input type="text" [(ngModel)]="playerCard.work_rate" name="work_rate" id="work_rate" />
+            </div>
+
+            <div class="form-group">
+              <label for="body_type">Tipo de Cuerpo:</label>
+              <input type="text" [(ngModel)]="playerCard.body_type" name="body_type" id="body_type" />
+            </div>
+
+
+          </div>
+          <div class="card__content2">
+
+            <div class="form-group">
+              <label for="pace">Velocidad:</label>
+              <input type="number" [(ngModel)]="playerCard.pace" name="pace" id="pace" />
+            </div>
+
+            <div class="form-group">
+              <label for="shooting">Tiro:</label>
+              <input type="number" [(ngModel)]="playerCard.shooting" name="shooting" id="shooting" />
+            </div>
+
+            <div class="form-group">
+              <label for="passing">Pase:</label>
+              <input type="number" [(ngModel)]="playerCard.passing" name="passing" id="passing" />
+            </div>
+
+            <div class="form-group">
+              <label for="dribbling">Drible:</label>
+              <input type="number" [(ngModel)]="playerCard.dribbling" name="dribbling" id="dribbling" />
+            </div>
+
+            <div class="form-group">
+              <label for="defending">Defensa:</label>
+              <input type="number" [(ngModel)]="playerCard.defending" name="defending" id="defending" />
+            </div>
+
+            <div class="form-group">
+              <label for="physic">Físico:</label>
+              <input type="number" [(ngModel)]="playerCard.physic" name="physic" id="physic" />
+            </div>
+
+            <div class="form-group">
+              <label for="attacking_crossing">Cruzado Ofensivo:</label>
+              <input type="number" [(ngModel)]="playerCard.attacking_crossing" name="attacking_crossing"
+                id="attacking_crossing" />
+            </div>
+
+            <div class="form-group">
+              <label for="attacking_finishing">Finalización Ofensiva:</label>
+              <input type="number" [(ngModel)]="playerCard.attacking_finishing" name="attacking_finishing"
+                id="attacking_finishing" />
+            </div>
+
+            <div class="form-group">
+              <label for="attacking_heading_accuracy">Precisión de Cabeza Ofensiva:</label>
+              <input type="number" [(ngModel)]="playerCard.attacking_heading_accuracy" name="attacking_heading_accuracy"
+                id="attacking_heading_accuracy" />
+            </div>
+
+            <div class="form-group">
+              <label for="attacking_short_passing">Pase Corto Ofensivo:</label>
+              <input type="number" [(ngModel)]="playerCard.attacking_short_passing" name="attacking_short_passing"
+                id="attacking_short_passing" />
+            </div>
+
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="long_name">Nombre:</label>
-          <input type="text" [(ngModel)]="playerCard.long_name" name="long_name" id="long_name" required />
-          <div *ngIf="playerForm.submitted && !playerCard.long_name" class="error-message">
-            El nombre es obligatorio.
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="player_positions">Posición:</label>
-          <input type="text" [(ngModel)]="playerCard.player_positions" name="player_positions" id="player_positions" />
-        </div>
-
-        <div class="form-group">
-          <label for="club_name">Club:</label>
-          <input type="text" [(ngModel)]="playerCard.club_name" name="club_name" id="club_name" />
-        </div>
-
-        <div class="form-group">
-          <label for="nationality_name">Nacionalidad:</label>
-          <input type="text" [(ngModel)]="playerCard.nationality_name" name="nationality_name" id="nationality_name" />
-        </div>
-
-        <div class="form-group">
-          <label for="age">Edad:</label>
-          <input type="number" [(ngModel)]="playerCard.age" name="age" id="age" />
-        </div>
-
-        <div class="form-group">
-          <label for="height_cm">Altura (cm):</label>
-          <input type="number" [(ngModel)]="playerCard.height_cm" name="height_cm" id="height_cm" />
-        </div>
-
-        <div class="form-group">
-          <label for="weight_kg">Peso (kg):</label>
-          <input type="number" [(ngModel)]="playerCard.weight_kg" name="weight_kg" id="weight_kg" />
-        </div>
-
-        <div class="form-group">
-          <label for="preferred_foot">Pie Preferido:</label>
-          <input type="text" [(ngModel)]="playerCard.preferred_foot" name="preferred_foot" id="preferred_foot" />
-        </div>
-
-        <div class="form-group">
-          <label for="weak_foot">Pie Débil:</label>
-          <input type="number" [(ngModel)]="playerCard.weak_foot" name="weak_foot" id="weak_foot" />
-        </div>
-
-        <div class="form-group">
-          <label for="skill_moves">Movimientos de Habilidad:</label>
-          <input type="number" [(ngModel)]="playerCard.skill_moves" name="skill_moves" id="skill_moves" />
-        </div>
-
-        <div class="form-group">
-          <label for="overall">Valoración General:</label>
-          <input type="number" [(ngModel)]="playerCard.overall" name="overall" id="overall" />
-        </div>
-
-        <div class="form-group">
-          <label for="potential">Potencial:</label>
-          <input type="number" [(ngModel)]="playerCard.potential" name="potential" id="potential" />
-        </div>
-
-        <div class="form-group">
-          <label for="value_eur">Valor (EUR):</label>
-          <input type="number" [(ngModel)]="playerCard.value_eur" name="value_eur" id="value_eur" />
-        </div>
-
-        <div class="form-group">
-          <label for="wage_eur">Salario (EUR):</label>
-          <input type="number" [(ngModel)]="playerCard.wage_eur" name="wage_eur" id="wage_eur" />
-        </div>
-
-        <div class="form-group">
-          <label for="international_reputation">Reputación Internacional:</label>
-          <input type="number" [(ngModel)]="playerCard.international_reputation" name="international_reputation"
-            id="international_reputation" />
-        </div>
-
-        <div class="form-group">
-          <label for="work_rate">Tasa de Trabajo:</label>
-          <input type="text" [(ngModel)]="playerCard.work_rate" name="work_rate" id="work_rate" />
-        </div>
-
-        <div class="form-group">
-          <label for="body_type">Tipo de Cuerpo:</label>
-          <input type="text" [(ngModel)]="playerCard.body_type" name="body_type" id="body_type" />
-        </div>
-        
+        <div class="card__content__box">
         <div class="card__content2">
 
-        <div class="form-group">
-          <label for="pace">Velocidad:</label>
-          <input type="number" [(ngModel)]="playerCard.pace" name="pace" id="pace" />
+          <div class="form-group">
+            <label for="attacking_volleys">Voleas Ofensivas:</label>
+            <input type="number" [(ngModel)]="playerCard.attacking_volleys" name="attacking_volleys"
+              id="attacking_volleys" />
+          </div>
+
+          <div class="form-group">
+            <label for="skill_dribbling">Dribbling:</label>
+            <input type="number" [(ngModel)]="playerCard.skill_dribbling" name="skill_dribbling" id="skill_dribbling" />
+          </div>
+
+          <div class="form-group">
+            <label for="skill_curve">Curva:</label>
+            <input type="number" [(ngModel)]="playerCard.skill_curve" name="skill_curve" id="skill_curve" />
+          </div>
+
+          <div class="form-group">
+            <label for="skill_fk_accuracy">Precisión de Tiro Libre:</label>
+            <input type="number" [(ngModel)]="playerCard.skill_fk_accuracy" name="skill_fk_accuracy"
+              id="skill_fk_accuracy" />
+          </div>
+
+          <div class="form-group">
+            <label for="skill_long_passing">Pase Largo:</label>
+            <input type="number" [(ngModel)]="playerCard.skill_long_passing" name="skill_long_passing"
+              id="skill_long_passing" />
+          </div>
+
+          <div class="form-group">
+            <label for="skill_ball_control">Control del Balón:</label>
+            <input type="number" [(ngModel)]="playerCard.skill_ball_control" name="skill_ball_control"
+              id="skill_ball_control" />
+          </div>
+
+          <div class="form-group">
+            <label for="movement_acceleration">Aceleración:</label>
+            <input type="number" [(ngModel)]="playerCard.movement_acceleration" name="movement_acceleration"
+              id="movement_acceleration" />
+          </div>
+
+          <div class="form-group">
+            <label for="movement_sprint_speed">Velocidad de Sprint:</label>
+            <input type="number" [(ngModel)]="playerCard.movement_sprint_speed" name="movement_sprint_speed"
+              id="movement_sprint_speed" />
+          </div>
+
+          <div class="form-group">
+            <label for="movement_agility">Agilidad:</label>
+            <input type="number" [(ngModel)]="playerCard.movement_agility" name="movement_agility"
+              id="movement_agility" />
+          </div>
+
+          <div class="form-group">
+            <label for="movement_reactions">Reacciones:</label>
+            <input type="number" [(ngModel)]="playerCard.movement_reactions" name="movement_reactions"
+              id="movement_reactions" />
+          </div>
+
+          <div class="form-group">
+            <label for="movement_balance">Equilibrio:</label>
+            <input type="number" [(ngModel)]="playerCard.movement_balance" name="movement_balance"
+              id="movement_balance" />
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label for="shooting">Tiro:</label>
-          <input type="number" [(ngModel)]="playerCard.shooting" name="shooting" id="shooting" />
+        <div class="card__content2">
+
+          <div class="form-group">
+            <label for="power_shot_power">Potencia de Tiro:</label>
+            <input type="number" [(ngModel)]="playerCard.power_shot_power" name="power_shot_power"
+              id="power_shot_power" />
+          </div>
+
+          <div class="form-group">
+            <label for="power_jumping">Salto:</label>
+            <input type="number" [(ngModel)]="playerCard.power_jumping" name="power_jumping" id="power_jumping" />
+          </div>
+
+          <div class="form-group">
+            <label for="power_stamina">Resistencia:</label>
+            <input type="number" [(ngModel)]="playerCard.power_stamina" name="power_stamina" id="power_stamina" />
+          </div>
+
+          <div class="form-group">
+            <label for="power_strength">Fuerza:</label>
+            <input type="number" [(ngModel)]="playerCard.power_strength" name="power_strength" id="power_strength" />
+          </div>
+
+          <div class="form-group">
+            <label for="power_long_shots">Tiros Largos:</label>
+            <input type="number" [(ngModel)]="playerCard.power_long_shots" name="power_long_shots"
+              id="power_long_shots" />
+          </div>
+
+          <div class="form-group">
+            <label for="mentality_aggression">Agresividad:</label>
+            <input type="number" [(ngModel)]="playerCard.mentality_aggression" name="mentality_aggression"
+              id="mentality_aggression" />
+          </div>
+
+          <div class="form-group">
+            <label for="mentality_interceptions">Intercepciones:</label>
+            <input type="number" [(ngModel)]="playerCard.mentality_interceptions" name="mentality_interceptions"
+              id="mentality_interceptions" />
+          </div>
+
+          <div class="form-group">
+            <label for="mentality_positioning">Posicionamiento:</label>
+            <input type="number" [(ngModel)]="playerCard.mentality_positioning" name="mentality_positioning"
+              id="mentality_positioning" />
+          </div>
+
+          <div class="form-group">
+            <label for="mentality_vision">Visión:</label>
+            <input type="number" [(ngModel)]="playerCard.mentality_vision" name="mentality_vision"
+              id="mentality_vision" />
+          </div>
+
+          <div class="form-group">
+            <label for="mentality_penalties">Penales:</label>
+            <input type="number" [(ngModel)]="playerCard.mentality_penalties" name="mentality_penalties"
+              id="mentality_penalties" />
+          </div>
+
+          <div class="form-group">
+            <label for="mentality_composure">Composure:</label>
+            <input type="number" [(ngModel)]="playerCard.mentality_composure" name="mentality_composure"
+              id="mentality_composure" />
+          </div>
+
         </div>
 
-        <div class="form-group">
-          <label for="passing">Pase:</label>
-          <input type="number" [(ngModel)]="playerCard.passing" name="passing" id="passing" />
-        </div>
+        <div class="card__content2">
 
-        <div class="form-group">
-          <label for="dribbling">Drible:</label>
-          <input type="number" [(ngModel)]="playerCard.dribbling" name="dribbling" id="dribbling" />
-        </div>
+          <div class="form-group">
+            <label for="defending_marking">Marcaje:</label>
+            <input type="number" [(ngModel)]="playerCard.defending_marking" name="defending_marking"
+              id="defending_marking" />
+          </div>
 
-        <div class="form-group">
-          <label for="defending">Defensa:</label>
-          <input type="number" [(ngModel)]="playerCard.defending" name="defending" id="defending" />
-        </div>
+          <div class="form-group">
+            <label for="defending_standing_tackle">Tackle (De Pie):</label>
+            <input type="number" [(ngModel)]="playerCard.defending_standing_tackle" name="defending_standing_tackle"
+              id="defending_standing_tackle" />
+          </div>
 
-        <div class="form-group">
-          <label for="physic">Físico:</label>
-          <input type="number" [(ngModel)]="playerCard.physic" name="physic" id="physic" />
-        </div>
+          <div class="form-group">
+            <label for="defending_sliding_tackle">Tackle (Deslizante):</label>
+            <input type="number" [(ngModel)]="playerCard.defending_sliding_tackle" name="defending_sliding_tackle"
+              id="defending_sliding_tackle" />
+          </div>
 
-        <div class="form-group">
-          <label for="attacking_crossing">Cruzado Ofensivo:</label>
-          <input type="number" [(ngModel)]="playerCard.attacking_crossing" name="attacking_crossing"
-            id="attacking_crossing" />
-        </div>
+          <div class="form-group">
+            <label for="goalkeeping_diving">Diving:</label>
+            <input type="number" [(ngModel)]="playerCard.goalkeeping_diving" name="goalkeeping_diving"
+              id="goalkeeping_diving" />
+          </div>
 
-        <div class="form-group">
-          <label for="attacking_finishing">Finalización Ofensiva:</label>
-          <input type="number" [(ngModel)]="playerCard.attacking_finishing" name="attacking_finishing"
-            id="attacking_finishing" />
-        </div>
+          <div class="form-group">
+            <label for="goalkeeping_handling">Handling:</label>
+            <input type="number" [(ngModel)]="playerCard.goalkeeping_handling" name="goalkeeping_handling"
+              id="goalkeeping_handling" />
+          </div>
 
-        <div class="form-group">
-          <label for="attacking_heading_accuracy">Precisión de Cabeza Ofensiva:</label>
-          <input type="number" [(ngModel)]="playerCard.attacking_heading_accuracy" name="attacking_heading_accuracy"
-            id="attacking_heading_accuracy" />
-        </div>
+          <div class="form-group">
+            <label for="goalkeeping_kicking">Kicking:</label>
+            <input type="number" [(ngModel)]="playerCard.goalkeeping_kicking" name="goalkeeping_kicking"
+              id="goalkeeping_kicking" />
+          </div>
 
-        <div class="form-group">
-          <label for="attacking_short_passing">Pase Corto Ofensivo:</label>
-          <input type="number" [(ngModel)]="playerCard.attacking_short_passing" name="attacking_short_passing"
-            id="attacking_short_passing" />
-        </div>
+          <div class="form-group">
+            <label for="goalkeeping_positioning">Positioning:</label>
+            <input type="number" [(ngModel)]="playerCard.goalkeeping_positioning" name="goalkeeping_positioning"
+              id="goalkeeping_positioning" />
+          </div>
 
-        <div class="form-group">
-          <label for="attacking_volleys">Voleas Ofensivas:</label>
-          <input type="number" [(ngModel)]="playerCard.attacking_volleys" name="attacking_volleys"
-            id="attacking_volleys" />
-        </div>
+          <div class="form-group">
+            <label for="goalkeeping_reflexes">Reflexes:</label>
+            <input type="number" [(ngModel)]="playerCard.goalkeeping_reflexes" name="goalkeeping_reflexes"
+              id="goalkeeping_reflexes" />
+          </div>
 
-        <div class="form-group">
-          <label for="skill_dribbling">Dribbling:</label>
-          <input type="number" [(ngModel)]="playerCard.skill_dribbling" name="skill_dribbling" id="skill_dribbling" />
-        </div>
+          <div class="form-group">
+            <label for="goalkeeping_speed">Speed:</label>
+            <input type="number" [(ngModel)]="playerCard.goalkeeping_speed" name="goalkeeping_speed"
+              id="goalkeeping_speed" />
+          </div>
 
-        <div class="form-group">
-          <label for="skill_curve">Curva:</label>
-          <input type="number" [(ngModel)]="playerCard.skill_curve" name="skill_curve" id="skill_curve" />
+          <div class="form-group">
+            <label for="player_traits">Rasgos del Jugador:</label>
+            <input type="text" [(ngModel)]="playerCard.player_traits" name="player_traits" id="player_traits" />
+          </div>
+          <button type="submit">Actualizar Jugador</button>
         </div>
-
-        <div class="form-group">
-          <label for="skill_fk_accuracy">Precisión de Tiro Libre:</label>
-          <input type="number" [(ngModel)]="playerCard.skill_fk_accuracy" name="skill_fk_accuracy"
-            id="skill_fk_accuracy" />
-        </div>
-
-        <div class="form-group">
-          <label for="skill_long_passing">Pase Largo:</label>
-          <input type="number" [(ngModel)]="playerCard.skill_long_passing" name="skill_long_passing"
-            id="skill_long_passing" />
-        </div>
-
-        <div class="form-group">
-          <label for="skill_ball_control">Control del Balón:</label>
-          <input type="number" [(ngModel)]="playerCard.skill_ball_control" name="skill_ball_control"
-            id="skill_ball_control" />
-        </div>
-
-        <div class="form-group">
-          <label for="movement_acceleration">Aceleración:</label>
-          <input type="number" [(ngModel)]="playerCard.movement_acceleration" name="movement_acceleration"
-            id="movement_acceleration" />
-        </div>
-
-        <div class="form-group">
-          <label for="movement_sprint_speed">Velocidad de Sprint:</label>
-          <input type="number" [(ngModel)]="playerCard.movement_sprint_speed" name="movement_sprint_speed"
-            id="movement_sprint_speed" />
-        </div>
-
-        <div class="form-group">
-          <label for="movement_agility">Agilidad:</label>
-          <input type="number" [(ngModel)]="playerCard.movement_agility" name="movement_agility"
-            id="movement_agility" />
-        </div>
-
-        <div class="form-group">
-          <label for="movement_reactions">Reacciones:</label>
-          <input type="number" [(ngModel)]="playerCard.movement_reactions" name="movement_reactions"
-            id="movement_reactions" />
-        </div>
-
-        <div class="form-group">
-          <label for="movement_balance">Equilibrio:</label>
-          <input type="number" [(ngModel)]="playerCard.movement_balance" name="movement_balance"
-            id="movement_balance" />
-        </div>
-
       </div>
-        <div class="card__content3">
-
-        <div class="form-group">
-          <label for="power_shot_power">Potencia de Tiro:</label>
-          <input type="number" [(ngModel)]="playerCard.power_shot_power" name="power_shot_power"
-            id="power_shot_power" />
-        </div>
-
-        <div class="form-group">
-          <label for="power_jumping">Salto:</label>
-          <input type="number" [(ngModel)]="playerCard.power_jumping" name="power_jumping" id="power_jumping" />
-        </div>
-
-        <div class="form-group">
-          <label for="power_stamina">Resistencia:</label>
-          <input type="number" [(ngModel)]="playerCard.power_stamina" name="power_stamina" id="power_stamina" />
-        </div>
-
-        <div class="form-group">
-          <label for="power_strength">Fuerza:</label>
-          <input type="number" [(ngModel)]="playerCard.power_strength" name="power_strength" id="power_strength" />
-        </div>
-
-        <div class="form-group">
-          <label for="power_long_shots">Tiros Largos:</label>
-          <input type="number" [(ngModel)]="playerCard.power_long_shots" name="power_long_shots"
-            id="power_long_shots" />
-        </div>
-
-        <div class="form-group">
-          <label for="mentality_aggression">Agresividad:</label>
-          <input type="number" [(ngModel)]="playerCard.mentality_aggression" name="mentality_aggression"
-            id="mentality_aggression" />
-        </div>
-
-        <div class="form-group">
-          <label for="mentality_interceptions">Intercepciones:</label>
-          <input type="number" [(ngModel)]="playerCard.mentality_interceptions" name="mentality_interceptions"
-            id="mentality_interceptions" />
-        </div>
-
-        <div class="form-group">
-          <label for="mentality_positioning">Posicionamiento:</label>
-          <input type="number" [(ngModel)]="playerCard.mentality_positioning" name="mentality_positioning"
-            id="mentality_positioning" />
-        </div>
-
-        <div class="form-group">
-          <label for="mentality_vision">Visión:</label>
-          <input type="number" [(ngModel)]="playerCard.mentality_vision" name="mentality_vision"
-            id="mentality_vision" />
-        </div>
-
-        <div class="form-group">
-          <label for="mentality_penalties">Penales:</label>
-          <input type="number" [(ngModel)]="playerCard.mentality_penalties" name="mentality_penalties"
-            id="mentality_penalties" />
-        </div>
-
-        <div class="form-group">
-          <label for="mentality_composure">Composure:</label>
-          <input type="number" [(ngModel)]="playerCard.mentality_composure" name="mentality_composure"
-            id="mentality_composure" />
-        </div>
-
-
-        <div class="form-group">
-          <label for="defending_marking">Marcaje:</label>
-          <input type="number" [(ngModel)]="playerCard.defending_marking" name="defending_marking"
-            id="defending_marking" />
-        </div>
-
-        <div class="form-group">
-          <label for="defending_standing_tackle">Tackle (De Pie):</label>
-          <input type="number" [(ngModel)]="playerCard.defending_standing_tackle" name="defending_standing_tackle"
-            id="defending_standing_tackle" />
-        </div>
-
-        <div class="form-group">
-          <label for="defending_sliding_tackle">Tackle (Deslizante):</label>
-          <input type="number" [(ngModel)]="playerCard.defending_sliding_tackle" name="defending_sliding_tackle"
-            id="defending_sliding_tackle" />
-        </div>
-
-        <div class="form-group">
-          <label for="goalkeeping_diving">Diving:</label>
-          <input type="number" [(ngModel)]="playerCard.goalkeeping_diving" name="goalkeeping_diving"
-            id="goalkeeping_diving" />
-        </div>
-
-        <div class="form-group">
-          <label for="goalkeeping_handling">Handling:</label>
-          <input type="number" [(ngModel)]="playerCard.goalkeeping_handling" name="goalkeeping_handling"
-            id="goalkeeping_handling" />
-        </div>
-
-        <div class="form-group">
-          <label for="goalkeeping_kicking">Kicking:</label>
-          <input type="number" [(ngModel)]="playerCard.goalkeeping_kicking" name="goalkeeping_kicking"
-            id="goalkeeping_kicking" />
-        </div>
-
-        <div class="form-group">
-          <label for="goalkeeping_positioning">Positioning:</label>
-          <input type="number" [(ngModel)]="playerCard.goalkeeping_positioning" name="goalkeeping_positioning"
-            id="goalkeeping_positioning" />
-        </div>
-
-        <div class="form-group">
-          <label for="goalkeeping_reflexes">Reflexes:</label>
-          <input type="number" [(ngModel)]="playerCard.goalkeeping_reflexes" name="goalkeeping_reflexes"
-            id="goalkeeping_reflexes" />
-        </div>
-
-        <div class="form-group">
-          <label for="goalkeeping_speed">Speed:</label>
-          <input type="number" [(ngModel)]="playerCard.goalkeeping_speed" name="goalkeeping_speed"
-            id="goalkeeping_speed" />
-        </div>
-
-        <div class="form-group">
-          <label for="player_traits">Rasgos del Jugador:</label>
-          <input type="text" [(ngModel)]="playerCard.player_traits" name="player_traits" id="player_traits" />
-        </div>
-        <button type="submit">Actualizar Jugador</button>
-      </div>
-
       </form>
     </div>
   </div>
