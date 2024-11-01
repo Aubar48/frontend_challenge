@@ -4,11 +4,25 @@ img {
 }
 
 /* Contenedor principal */
+
+
 .container {
   display: flex;
-  justify-content: center;
-  padding: 20px;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 0 auto;
 }
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.card__content2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
 
 /* Estilo de la tarjeta */
 .card {

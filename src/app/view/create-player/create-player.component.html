@@ -1,67 +1,78 @@
-<form [formGroup]="playerForm" (ngSubmit)="createPlayer()">
-  <div>
-    <label for="long_name">Nombre completo</label>
-    <input id="long_name" formControlName="long_name" required />
-    <div *ngIf="playerForm.get('long_name')?.invalid && (playerForm.get('long_name')?.touched || playerForm.get('long_name')?.dirty)">
-      <small class="error">El nombre completo es obligatorio.</small>
-    </div>
-  </div>
+<div class="background">
 
-  <div>
-    <label for="fifa_version">Versión de FIFA</label>
-    <input id="fifa_version" formControlName="fifa_version" required />
-    <div *ngIf="playerForm.get('fifa_version')?.invalid && (playerForm.get('fifa_version')?.touched || playerForm.get('fifa_version')?.dirty)">
-      <small class="error">La versión de FIFA es obligatoria.</small>
-    </div>
-  </div>
 
-  <div>
-    <label for="fifa_update">Actualización de FIFA</label>
-    <input id="fifa_update" formControlName="fifa_update" required />
-    <div *ngIf="playerForm.get('fifa_update')?.invalid && (playerForm.get('fifa_update')?.touched || playerForm.get('fifa_update')?.dirty)">
-      <small class="error">La actualización de FIFA es obligatoria.</small>
+  <form [formGroup]="playerForm" (ngSubmit)="createPlayer()">
+    <div>
+      <label for="long_name">Nombre completo</label>
+      <input id="long_name" formControlName="long_name" required />
+      <div
+        *ngIf="playerForm.get('long_name')?.invalid && (playerForm.get('long_name')?.touched || playerForm.get('long_name')?.dirty)">
+        <small class="error">El nombre completo es obligatorio.</small>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="player_face_url">URL de imagen del jugador</label>
-    <input id="player_face_url" formControlName="player_face_url" required />
-    <div *ngIf="playerForm.get('player_face_url')?.invalid && (playerForm.get('player_face_url')?.touched || playerForm.get('player_face_url')?.dirty)">
-      <small class="error">La URL de imagen es obligatoria.</small>
+    <div>
+      <label for="fifa_version">Versión de FIFA</label>
+      <input id="fifa_version" formControlName="fifa_version" required />
+      <div
+        *ngIf="playerForm.get('fifa_version')?.invalid && (playerForm.get('fifa_version')?.touched || playerForm.get('fifa_version')?.dirty)">
+        <small class="error">La versión de FIFA es obligatoria.</small>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="player_positions">Posiciones</label>
-    <input id="player_positions" formControlName="player_positions" required />
-    <div *ngIf="playerForm.get('player_positions')?.invalid && (playerForm.get('player_positions')?.touched || playerForm.get('player_positions')?.dirty)">
-      <small class="error">Las posiciones son obligatorias.</small>
+    <div>
+      <label for="fifa_update">Actualización de FIFA</label>
+      <input id="fifa_update" formControlName="fifa_update" required />
+      <div
+        *ngIf="playerForm.get('fifa_update')?.invalid && (playerForm.get('fifa_update')?.touched || playerForm.get('fifa_update')?.dirty)">
+        <small class="error">La actualización de FIFA es obligatoria.</small>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="overall">Overall</label>
-    <input id="overall" type="number" formControlName="overall" required />
-    <div *ngIf="playerForm.get('overall')?.invalid && (playerForm.get('overall')?.touched || playerForm.get('overall')?.dirty)">
-      <small class="error">El overall es obligatorio.</small>
+    <div>
+      <label for="player_face_url">URL de imagen del jugador</label>
+      <input id="player_face_url" formControlName="player_face_url" required />
+      <div
+        *ngIf="playerForm.get('player_face_url')?.invalid && (playerForm.get('player_face_url')?.touched || playerForm.get('player_face_url')?.dirty)">
+        <small class="error">La URL de imagen es obligatoria.</small>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="potential">Potencial</label>
-    <input id="potential" type="number" formControlName="potential" required />
-    <div *ngIf="playerForm.get('potential')?.invalid && (playerForm.get('potential')?.touched || playerForm.get('potential')?.dirty)">
-      <small class="error">El potencial es obligatorio.</small>
+    <div>
+      <label for="player_positions">Posiciones</label>
+      <input id="player_positions" formControlName="player_positions" required />
+      <div
+        *ngIf="playerForm.get('player_positions')?.invalid && (playerForm.get('player_positions')?.touched || playerForm.get('player_positions')?.dirty)">
+        <small class="error">Las posiciones son obligatorias.</small>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="age">Edad</label>
-    <input id="age" type="number" formControlName="age" required />
-    <div *ngIf="playerForm.get('age')?.invalid && (playerForm.get('age')?.touched || playerForm.get('age')?.dirty)">
-      <small class="error">La edad es obligatoria.</small>
+    <div>
+      <label for="overall">Overall</label>
+      <input id="overall" type="number" formControlName="overall" required />
+      <div
+        *ngIf="playerForm.get('overall')?.invalid && (playerForm.get('overall')?.touched || playerForm.get('overall')?.dirty)">
+        <small class="error">El overall es obligatorio.</small>
+      </div>
     </div>
-  </div>
 
-  <button type="submit" [disabled]="playerForm.invalid">Crear Jugador/a</button>
-</form>
+    <div>
+      <label for="potential">Potencial</label>
+      <input id="potential" type="number" formControlName="potential" required />
+      <div
+        *ngIf="playerForm.get('potential')?.invalid && (playerForm.get('potential')?.touched || playerForm.get('potential')?.dirty)">
+        <small class="error">El potencial es obligatorio.</small>
+      </div>
+    </div>
+
+    <div>
+      <label for="age">Edad</label>
+      <input id="age" type="number" formControlName="age" required />
+      <div *ngIf="playerForm.get('age')?.invalid && (playerForm.get('age')?.touched || playerForm.get('age')?.dirty)">
+        <small class="error">La edad es obligatoria.</small>
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="playerForm.invalid">Crear Jugador/a</button>
+  </form>
+</div>
