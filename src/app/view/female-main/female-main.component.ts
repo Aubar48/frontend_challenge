@@ -50,10 +50,17 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.route.queryParams.subscribe(params => {
         this.currentSearchTerm = params['search'] || '';
-        this.onSearchTermChange(this.currentSearchTerm);
+        
+        // Llama a `onSearchTermChange` solo si hay un término de búsqueda
+        if (this.currentSearchTerm) {
+          this.onSearchTermChange(this.currentSearchTerm);
+        } else {
+          // Si no hay término de búsqueda, navega sin `search` en la URL
+          this.router.navigate(['/homeFemale/page', this.currentPage]);
+        }
       })
     );
-  }
+}
 
   loadPlayers(page: number): void {
     this.subscription.add(
