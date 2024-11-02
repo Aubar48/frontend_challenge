@@ -20,6 +20,7 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 - **Angular Material** (opcional para UI)
 - **Reactive Forms** para validaciones en el frontend
 - **Chart.js** para visualización de habilidades de los jugadores
+- **SweetAlert 2** Un reemplazo personalizable y accesible para los cuadros emergentes.
 
 ## Funcionalidades
 

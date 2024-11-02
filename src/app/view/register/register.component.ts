@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { RegisterService } from '../../services/register/register.service';
 import { Auth } from '../../models/auth.model';
+import { Router } from '@angular/router'; // Importa Router
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,11 @@ import { Auth } from '../../models/auth.model';
 export class RegisterComponent {
   registerForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private registerService: RegisterService) {
+  constructor(
+    private fb: FormBuilder,
+    private registerService: RegisterService,
+    private router: Router // Inyecta Router aquí
+  ) {
     // Definir el formulario reactivo y sus validaciones
     this.registerForm = this.fb.group({
       username: ['', Validators.required],
@@ -35,8 +40,10 @@ export class RegisterComponent {
             title: 'Usuario Registrado',
             text: 'El registro se ha realizado con éxito',
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true
+          }).then(() => {
+            this.router.navigate(['/login']); // Cambia esto a la ruta deseada
           });
           this.registerForm.reset(); // Limpiar el formulario
         },

@@ -38,7 +38,7 @@ export class LoginComponent {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 2000,
+            timer: 1000,
             timerProgressBar: true,
           }).then(() => {
             this.router.navigate(['/homeMale']); // Cambia esto a la ruta que desees
@@ -63,19 +63,5 @@ export class LoginComponent {
     }
   }
 
-  logout() {
-    this.loginService.logout(); // Llama al método de logout del servicio
-    Swal.fire({
-      icon: 'info',
-      title: 'Sesión cerrada',
-      text: 'Has cerrado sesión correctamente.',
-      toast: true,
-      position: 'top-end',
-      showConfirmButton: false,
-      timer: 2000,
-      timerProgressBar: true,
-    }).then(() => {
-      this.router.navigate(['/login']); // Redirige al usuario a la página de login u otra ruta que prefieras
-    });
-  }
+  
 }

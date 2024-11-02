@@ -7,6 +7,7 @@ import { MenuItem } from '../../models/menu-item.model';
 import { LoginService } from '../../services/login/login.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-header',
@@ -117,7 +118,18 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   }
 
   logout() {
-    this.loginService.logout();
-    this.router.navigate(['/login']);
+    this.loginService.logout(); // Llama al método de logout del servicio
+    Swal.fire({
+      icon: 'info',
+      title: 'Sesión cerrada',
+      text: 'Has cerrado sesión correctamente.',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true,
+    }).then(() => {
+      this.router.navigate(['/login']); // Redirige al usuario a la página de login u otra ruta que prefieras
+    });
   }
 }

@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { PlayerSearchComponent } from "../../core/player-search/player-search.component";
 import { FormsModule } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-main',
@@ -17,18 +18,17 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./male-main.component.scss']
 })
 export class MaleMainComponent implements OnInit, OnDestroy {
-  private currentSearchTerm: string = ''; // Define currentSearchTerm aquí
+  private currentSearchTerm: string = ''; 
 
-  playerCardModel: PlayerCardModel[] = []; // Cambiado a un array vacío por defecto
-  filteredPlayerCardModel: PlayerCardModel[] = []; // Inicializa la lista filtrada
+  playerCardModel: PlayerCardModel[] = []; 
+  filteredPlayerCardModel: PlayerCardModel[] = []; 
 
   currentPage: number = 1;
-  itemsPerPage: number = 100; // Cambia esto a 100 para mostrar 100 tarjetas
+  itemsPerPage: number = 100; 
   totalItems: number = 0;
   totalPages: number = 0;
 
   subscription = new Subscription();
-  http: any;
 
   constructor(
     private cardMaleService: CardMaleService,
@@ -49,11 +49,10 @@ export class MaleMainComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Captura los parámetros de consulta
     this.subscription.add(
       this.route.queryParams.subscribe(params => {
-        this.currentSearchTerm = params['search'] || ''; // Captura el término de búsqueda
-        this.onSearchTermChange(this.currentSearchTerm); // Filtra los jugadores
+        this.currentSearchTerm = params['search'] || ''; 
+        this.onSearchTermChange(this.currentSearchTerm); 
       })
     );
   }
@@ -65,14 +64,13 @@ export class MaleMainComponent implements OnInit, OnDestroy {
           if (Array.isArray(res)) {
             this.playerCardModel = res;
             this.filteredPlayerCardModel = res;
-            this.totalItems = 161570; // Total de jugadoras
+            this.totalItems = 161570; 
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-            this.updateFilteredPlayerCards(); // Actualiza la lista filtrada después de cargar los jugadores
+            this.updateFilteredPlayerCards(); 
 
-            // Actualiza la URL con la página actual (sin parámetros de consulta)
             this.router.navigate(['/homeMale/page', this.currentPage], {
-              queryParams: { search: this.currentSearchTerm }, // Solo mantiene el término de búsqueda
-              queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+              queryParams: { search: this.currentSearchTerm },
+              queryParamsHandling: 'merge' 
             });
           } else {
             console.warn('La respuesta no es un array:', res);
@@ -88,7 +86,6 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   onSearchTermChange(term: string): void {
     this.currentSearchTerm = term;
   
-    // Filtrar jugadores basados en el término de búsqueda
     if (term.trim() === '') {
       this.filteredPlayerCardModel = this.playerCardModel.slice();
     } else {
@@ -110,20 +107,17 @@ export class MaleMainComponent implements OnInit, OnDestroy {
       }
     }
   
-    // Actualizar la paginación después de filtrar
     this.updateFilteredPlayerCards();
   
-    // Navegar a la misma ruta con el parámetro de búsqueda
     this.router.navigate([], {
       queryParams: { 
-        search: this.currentSearchTerm // Solo agrega el parámetro de búsqueda
+        search: this.currentSearchTerm
       },
-      queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+      queryParamsHandling: 'merge'
     });
   }
 
   updateFilteredPlayerCards(): void {
-    // Aplicar la paginación a los resultados filtrados
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.filteredPlayerCardModel = this.filteredPlayerCardModel.slice(startIndex, endIndex);
@@ -132,41 +126,118 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.loadPlayers(this.currentPage); // Carga los jugadores de la nueva página
-      this.onSearchTermChange(this.currentSearchTerm); // Actualiza el término de búsqueda
+      this.loadPlayers(this.currentPage);
+      this.onSearchTermChange(this.currentSearchTerm); 
     }
   }
 
   verMas(playerId: number): void {
-    this.router.navigate(['/players', playerId]);
+    Swal.fire({
+      icon: 'success',
+      title: 'VER MÁS',
+      text: `Vamos a ver los detalles del jugador con ID: ${playerId}`,
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+    }).then(() => {
+      this.router.navigate(['/players', playerId]);
+    });
   }
 
   goToCreatePlayer() {
-    this.router.navigate(['/players/create']); // Ajusta la ruta según tu configuración
+    Swal.fire({
+      title: 'Vamoo a crear un nuevo jugador',
+      icon: 'success',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+    }).then(() => {
+        this.router.navigate(['/players/create']);
+    });
   }
 
   borrar(playerId: number): void {
-    this.cardMaleService.deleteCardMale(playerId).subscribe({
-      next: () => {
-        console.log(`Borrando jugador con ID: ${playerId}`);
-        this.loadPlayers(this.currentPage);
-      },
-      error: error => {
-        console.warn('Error al borrar el jugador:', error);
+    Swal.fire({
+      title: '¿Estás seguro de que deseas borrar este jugador?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cardMaleService.deleteCardMale(playerId).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Jugador borrado',
+              text: `El jugador con ID: ${playerId} ha sido eliminado.`,
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 1000,
+              timerProgressBar: true
+            });
+            this.loadPlayers(this.currentPage);
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Hubo un problema al intentar borrar el jugador.',
+            });
+            console.warn('Error al borrar el jugador:', error);
+          }
+        });
       }
     });
   }
 
   editar(player: PlayerCardModel): void {
-    this.router.navigate(['/players/edit', player.id]);
+
+    Swal.fire({
+      title: `Vamoo a editar al jugador con ID: ${player.id}`,
+      icon: 'success',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+    }).then(() => {
+      this.router.navigate(['/players/edit', player.id]);
+    });
+    
   }
 
-  // Método para invocar la descarga de CSV
-  onDownloadCSV(): void {
-    this.cardMaleService.downloadCSV();
+   onDownloadCSV(): void {
+    Swal.fire({
+      title: '¿Quieres descargar el CSV de los jugadores?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, descargar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cardMaleService.downloadCSV();
+      }
+    });
   }
+
   onconvertCsvToExcel(): void {
-    this.cardMaleService.convertCsvToExcel();
+    Swal.fire({
+      title: '¿Quieres descargar el LXSX de los jugadores?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, descargar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cardMaleService.convertCsvToExcel();
+      }
+    });
   }
   
   ngOnDestroy(): void {

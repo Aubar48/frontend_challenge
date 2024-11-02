@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { CardFemaleService } from '../../services/card-female/card-female.service';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { PaginationComponent } from '../../core/pagination/pagination.component';
 import { PlayerCardComponent } from '../../core/player-card/player-card.component';
 import { FormsModule } from '@angular/forms';
@@ -23,7 +24,7 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   subscription = new Subscription();
 
   currentPage: number = 1;
-  itemsPerPage: number = 100; // Cambiar a 100 para mostrar más en la paginación
+  itemsPerPage: number = 100;
   totalItems: number = 0;
   totalPages: number = 0;
 
@@ -46,11 +47,10 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
       })
     );
 
-    // Captura los parámetros de consulta
     this.subscription.add(
       this.route.queryParams.subscribe(params => {
-        this.currentSearchTerm = params['search'] || ''; // Captura el término de búsqueda
-        this.onSearchTermChange(this.currentSearchTerm); // Filtra los jugadores
+        this.currentSearchTerm = params['search'] || '';
+        this.onSearchTermChange(this.currentSearchTerm);
       })
     );
   }
@@ -62,14 +62,13 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
           if (Array.isArray(res)) {
             this.playerCardModel = res;
             this.filteredPlayerCardModel = res;
-            this.totalItems = 181347; // Total de jugadoras
+            this.totalItems = 181347;
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
-            this.updateFilteredPlayerCards(); // Actualiza la lista filtrada después de cargar los jugadores
+            this.updateFilteredPlayerCards();
 
-            // Actualiza la URL con la página actual y el término de búsqueda
             this.router.navigate(['/homeFemale/page', this.currentPage], {
-              queryParams: { search: this.currentSearchTerm }, // Solo mantiene el término de búsqueda
-              queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+              queryParams: { search: this.currentSearchTerm },
+              queryParamsHandling: 'merge'
             });
           }
         },
@@ -83,7 +82,6 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   onSearchTermChange(term: string): void {
     this.currentSearchTerm = term;
 
-    // Filtrar jugadores basados en el término de búsqueda
     if (term.trim() === '') {
       this.filteredPlayerCardModel = this.playerCardModel.slice();
     } else {
@@ -105,18 +103,15 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
       }
     }
 
-    // Actualizar la paginación después de filtrar
     this.updateFilteredPlayerCards();
 
-    // Navegar a la misma ruta con el parámetro de búsqueda
     this.router.navigate([], {
-      queryParams: { search: this.currentSearchTerm }, // Solo agrega el parámetro de búsqueda
-      queryParamsHandling: 'merge' // Mantiene otros parámetros de consulta
+      queryParams: { search: this.currentSearchTerm },
+      queryParamsHandling: 'merge'
     });
   }
 
   updateFilteredPlayerCards(): void {
-    // Aplicar la paginación a los resultados filtrados
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     this.filteredPlayerCardModel = this.filteredPlayerCardModel.slice(startIndex, endIndex);
@@ -125,40 +120,114 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.loadPlayers(this.currentPage); // Carga los jugadores de la nueva página
+      this.loadPlayers(this.currentPage);
     }
   }
 
   verMas(femaleId: number): void {
-    this.router.navigate(['/female', femaleId]);
+
+    Swal.fire({
+      icon: 'success',
+      title: 'VER MAS',
+      text: `Vamoo a ver los detalles de la jugadora con ID: ${femaleId} `,
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+    }).then(() => {
+      this.router.navigate(['/female', femaleId]);
+    })
   }
 
   goToCreatePlayer() {
-    this.router.navigate(['/female/create']); // Ajusta la ruta según tu configuración
+    Swal.fire({
+      title: 'Vamoo a crear a una nueva jugadora',
+      icon: 'success',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+    }).then(() => {
+        this.router.navigate(['/female/create']);
+    });
   }
 
   borrar(femaleId: number): void {
-    this.cardFemaleService.deleteCardFemale(femaleId).subscribe({
-      next: () => {
-        console.log(`Borrando jugadora con ID: ${femaleId}`);
-        this.loadPlayers(this.currentPage);
-      },
-      error: error => {
-        console.warn('Error al borrar la jugadora:', error);
+    Swal.fire({
+      title: '¿Estás seguro de que deseas borrar esta jugadora?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cardFemaleService.deleteCardFemale(femaleId).subscribe({
+          next: () => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Jugadora Borrada',
+              text: `La jugadora con ID: ${femaleId} ha sido borrada exitosamente.`,
+              timer: 2000,
+              showConfirmButton: false
+            });
+            this.loadPlayers(this.currentPage);
+          },
+          error: error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error al Borrar',
+              text: 'No se pudo borrar la jugadora. Inténtalo de nuevo más tarde.'
+            });
+          }
+        });
       }
     });
   }
 
   editar(female: PlayerCardModel): void {
-    this.router.navigate(['/female/edit', female.id]);
+    Swal.fire({
+      title: `Vamoo a editar a la jugadora con ID: ${female.id}`,
+      icon: 'success',
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+    }).then(() => {
+        this.router.navigate(['/female/edit', female.id]);
+    });
   }
+
   onDownloadCSV(): void {
-    this.cardFemaleService.downloadCSV();
+    Swal.fire({
+      title: '¿Quieres descargar el CSV de las jugadoras?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, descargar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cardFemaleService.downloadCSV();
+      }
+    });
   }
 
   onconvertCsvToExcel(): void {
-    this.cardFemaleService.convertCsvToExcel();
+    Swal.fire({
+      title: '¿Quieres descargar el LXSX de las jugadoras?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, descargar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.cardFemaleService.convertCsvToExcel();
+      }
+    });
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
