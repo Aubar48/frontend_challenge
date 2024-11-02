@@ -64,7 +64,7 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
 
   loadPlayers(page: number): void {
     this.subscription.add(
-      this.cardFemaleService.getCardFemale(page, 1000).subscribe({
+      this.cardFemaleService.getCardFemale(page, 4000).subscribe({
         next: res => {
           if (Array.isArray(res)) {
             this.playerCardModel = res;
