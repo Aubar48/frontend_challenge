@@ -1,0 +1,40 @@
+/* Contenedor principal */
+.container {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+
+  /* Estilo del título con efecto marquee */
+  .title {
+    font-size: 3rem;
+    font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    width: 100%;
+    color: #333;
+    font-family: Arial, sans-serif;
+  }
+
+
+  /* Imagen */
+  .image {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 10px;
+  }
+
+  /* Responsividad */
+  @media (max-width: 600px) {
+    .title {
+      font-size: 2rem;
+    }
+    .image {
+      width: 100%;
+    }
+  }
