@@ -27,7 +27,7 @@ export class MaleMainComponent implements OnInit, OnDestroy {
   itemsPerPage: number = 100; 
   totalItems: number = 0;
   totalPages: number = 0;
-
+  limit: number = 4000;
   subscription = new Subscription();
 
   constructor(
@@ -66,7 +66,7 @@ export class MaleMainComponent implements OnInit, OnDestroy {
 
   loadPlayers(page: number): void {
     this.subscription.add(
-      this.cardMaleService.getCardMale(1, 4000).subscribe({
+      this.cardMaleService.getCardMale(page, this.limit).subscribe({
         next: res => {
           if (Array.isArray(res)) {
             this.playerCardModel = res;

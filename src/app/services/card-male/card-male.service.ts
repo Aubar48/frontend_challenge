@@ -30,7 +30,7 @@ export class CardMaleService {
   }
 
   // Obtener todos los jugadores, ahora con soporte para paginación
-  getCardMale(page: number = 1, limit: number = 100): Observable<PlayerCardModel[]> {
+  getCardMale(page: number, limit: number): Observable<PlayerCardModel[]> {
     const params = `?page=${page}&limit=${limit}`;
     return this.httpClient.get<{ players: any }>(`${this.apiUrl}${params}`, this.getHttpOptions()).pipe(
       map(response => Object.values(response.players))

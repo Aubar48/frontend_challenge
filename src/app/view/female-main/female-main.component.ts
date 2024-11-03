@@ -27,7 +27,7 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
   itemsPerPage: number = 100;
   totalItems: number = 0;
   totalPages: number = 0;
-
+  limit : number = 4000;
   constructor(
     private cardFemaleService: CardFemaleService,
     private route: ActivatedRoute,
@@ -64,12 +64,12 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
 
   loadPlayers(page: number): void {
     this.subscription.add(
-      this.cardFemaleService.getCardFemale(page, 4000).subscribe({
+      this.cardFemaleService.getCardFemale(page,this.limit).subscribe({
         next: res => {
           if (Array.isArray(res)) {
             this.playerCardModel = res;
             this.filteredPlayerCardModel = res;
-            this.totalItems = 181347;
+            this.totalItems = 181361;
             this.totalPages = Math.ceil(this.totalItems / this.itemsPerPage);
             this.updateFilteredPlayerCards();
 
@@ -233,6 +233,33 @@ export class FemaleMainComponent implements OnInit, OnDestroy {
         this.cardFemaleService.convertCsvToExcel();
       }
     });
+  }
+
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      // Aquí llamas al servicio para importar el archivo CSV
+      this.cardFemaleService.importDataFromCSV(file).subscribe({
+        next: (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Archivo importado exitosamente',
+            text: response.message, // Suponiendo que la respuesta tiene un mensaje
+            timer: 2000,
+            showConfirmButton: false
+          });
+          this.loadPlayers(this.currentPage); // Volver a cargar los jugadores
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al importar',
+            text: 'No se pudo importar el archivo. Inténtalo de nuevo más tarde.'
+          });
+          console.error('Error importando CSV:', error);
+        }
+      });
+    }
   }
 
   ngOnDestroy(): void {
