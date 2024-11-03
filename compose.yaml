@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4200:80"  # Cambia esto si quieres acceder en el puerto 4200
+    # Puedes quitar la sección de volumes a menos que necesites hacer cambios en tiempo real
+    # volumes:
+    #   - .:/app
