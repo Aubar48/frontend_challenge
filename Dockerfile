@@ -1,23 +1,13 @@
 # Stage 1: Build the Angular app
-FROM node:18 AS build
-
-RUN mkdir -p /app
+FROM node:20 AS build
 
 WORKDIR /app
 
-COPY package.json /app
-
+COPY package*.json ./
 RUN npm install
 
-COPY . /app
+COPY . .
 
-RUN npm run build --prod
-
-# Stage 2: Serve the app with Nginx
-FROM nginx:alpine
-
-# Copiar los archivos construidos de Angular al contenedor de Nginx
-COPY --from=build /app/dist/frontend_challenge /usr/share/nginx/html
-
-# Exponer el puerto 80
-EXPOSE 80
+RUN npm install @angular/cli -g
+EXPOSE 4200
+CMD ["ng", "serve", "--host", "0.0.0.0"]
