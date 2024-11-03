@@ -29,8 +29,8 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 
 1. **Listado de Jugadores**:
    - Endpoint para obtener un listado de jugadores paginado y filtrado por nombre, club, posición, etc.
-   - Descarga del listado limitando y filtrado en formato CSV.
-   - Descarga del listado limitando y filtrado en formato LXSX.
+   - Descarga del listado limitando y filtrado en formato CSV. NO FUNCIONA EN DOCKER.
+   - Descarga del listado limitando y filtrado en formato LXSX. NO FUNCIONA EN DOCKER.
    - Carga del listado limitando y filtrado en formato CSV.
    
 2. **Información Detallada de un Jugador**:
