@@ -15,6 +15,7 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 - **JSON Web Token (JWT)** Para autenticación.
 - **express-validator** Para validaciones de entrada.
 - **Swagger** Para la documentación de la api.
+- **Docker**
 
 ### Frontend
 - **Angular**
@@ -22,13 +23,15 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 - **Reactive Forms** Para validaciones en el frontend.
 - **Chart.js** Para visualización de habilidades de los jugadores.
 - **SweetAlert 2** Un reemplazo personalizable y accesible para los cuadros emergentes.
-
+- **Docker** 
 
 ## Funcionalidades
 
 1. **Listado de Jugadores**:
    - Endpoint para obtener un listado de jugadores paginado y filtrado por nombre, club, posición, etc.
-   - Descarga del listado filtrado en formato CSV.
+   - Descarga del listado limitando y filtrado en formato CSV.
+   - Descarga del listado limitando y filtrado en formato LXSX.
+   - Carga del listado limitando y filtrado en formato CSV.
    
 2. **Información Detallada de un Jugador**:
    - Endpoint para obtener detalles de un jugador específico por su ID.
@@ -36,13 +39,37 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 
 3. **Edición de Información de un Jugador**:
    - Endpoint para modificar la información de un jugador (nombre, posición, club, calificación, nacionalidad, y habilidades).
+   - Validación de entrada de datos para evitar errores de formato.
 
 4. **Creación de Jugador Personalizado**:
    - Endpoint para crear un nuevo jugador con datos personalizados.
 
-5. **Autenticación**:
+5. **Eliminar un jugador**:  
+   - Endpoint para eliminar un jugador de la base de datos.
+
+6. **Search de jugador**:
+   - Endpoint para buscar un jugador por nombre, club, posición, etc.
+
+7. **Burger menu && menu personalizado && router**:
+   - Menu de navegación personalizado para acceder a las diferentes funcionalidades de la aplicación. 
+   - menu amburgesa para la aplicación móvil.
+
+8. **Spotify-player**:
+   - Integración con Spotify para reproducir música mientras se navega por la aplicación.
+
+9. **Dark Mode**:
+   - Cambio de tema entre modo claro y oscuro desktop web.
+   - Cambio de tema entre modo claro y oscuro en la aplicación móvil.
+
+10. **Autenticación**:
    - Sistema de login para proteger el acceso a la información.
    - Los endpoints del backend están protegidos y requieren autenticación.
+   - JWT es utilizado para la autenticación.
+
+11. **Registration**:
+   - Endpoint para crear un nuevo usuario.
+   - Los usuarios pueden registrarse y obtener un token JWT para autenticarse.
+
 
 ## Requisitos Previos
 
@@ -75,6 +102,15 @@ fifa_male_players, para la base de datos, ejecutar los tres scripts.
 
 - Crea una base de datos en MySQL "en la carpeta mock tenes los scripts necesarios" y configura el archivo .env en la raíz del proyecto con los siguientes parametros como .env.example
 
+3. 1. **Docker Image Frontend**
+
+- docker build -t frontend-challenge .
+- docker run -p 4200:4200 frontend-challenge
+
+3. 2. **Docker Image Backend**
+
+- docker compose up --build
+
 4. **Inicia el Servidor**: 
 
 - npm start in NodeJs && ng serve in Angular
@@ -94,6 +130,7 @@ fifa_male_players, para la base de datos, ejecutar los tres scripts.
 - *Get:* http://localhost:3000/players/download/csv
 - *Get:* http://localhost:3000/players/convert/csv-to-excel
 - *Post:* http://localhost:3000/players/create
+- *Post:* http://localhost:3000/players/importar
 - *Put:* http://localhost:3000/players/edit/:id
 - *Delete:* http://localhost:3000/players/:id
 
@@ -103,5 +140,6 @@ fifa_male_players, para la base de datos, ejecutar los tres scripts.
 - *Get:* http://localhost:3000/female/download/csv
 - *Get:* http://localhost:3000/female/convert/csv-to-excel
 - *Post:* http://localhost:3000/female/create
+- *Post:* http://localhost:3000/female/importar
 - *Put:* http://localhost:3000/female/edit/:id
 - *Delete:* http://localhost:3000/female/:id
