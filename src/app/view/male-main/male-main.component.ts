@@ -247,6 +247,33 @@ export class MaleMainComponent implements OnInit, OnDestroy {
     });
   }
   
+  onFileSelected(event: Event): void {
+    const file = (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      // Aquí llamas al servicio para importar el archivo CSV
+      this.cardMaleService.importDataFromCSV(file).subscribe({
+        next: (response) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'Archivo importado exitosamente',
+            text: response.message, // Suponiendo que la respuesta tiene un mensaje
+            timer: 2000,
+            showConfirmButton: false
+          });
+          this.loadPlayers(this.currentPage); // Volver a cargar los jugadores
+        },
+        error: (error) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error al importar',
+            text: 'No se pudo importar el archivo. Inténtalo de nuevo más tarde.'
+          });
+          console.error('Error importando CSV:', error);
+        }
+      });
+    }
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }

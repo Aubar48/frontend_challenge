@@ -98,4 +98,21 @@ export class CardMaleService {
     console.error('Error al descargar el archivo Excel', error);
   });
 }
+// Método para importar datos desde un archivo CSV
+importDataFromCSV(file: File): Observable<{ message: string }> {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  return this.httpClient.post<{ message: string }>(`${this.apiUrl}/importar`, formData, {
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('authToken') || ''}`
+      // No necesitas especificar 'Content-Type' o 'enctype' aquí
+    }
+  }).pipe(
+    catchError((error) => {
+      console.error('Error al importar los datos', error);
+      return throwError(error);
+    })
+  );
+}
 }
