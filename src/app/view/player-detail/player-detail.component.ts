@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output, OnInit, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlayerCardModel } from '../../models/player-card.model';
 import { CardFemaleService } from '../../services/card-female/card-female.service';
 import { CardMaleService } from '../../services/card-male/card-male.service';
 import { CommonModule, Location } from '@angular/common';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
+import Swal from 'sweetalert2';
 
 Chart.register(...registerables);
 
@@ -26,7 +27,8 @@ export class PlayerDetailComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private cardFemaleService: CardFemaleService,
     private cardMaleService: CardMaleService,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -176,13 +178,54 @@ export class PlayerDetailComponent implements OnInit, AfterViewInit {
 
   onEdit() {
     if (this.playerCard) {
-      this.editPlayer.emit(this.playerCard);
+        this.editPlayer.emit(this.playerCard);
+        
+        // Obtén el path actual
+        const currentPath = this.route.snapshot.url.map(segment => segment.path).join('/');
+        
+        // Mensaje de alerta para la edición
+        const playerId = this.playerCard.id; // Suponiendo que tienes el ID del jugador en playerCard
+        
+        if (currentPath.includes('female')) {
+            Swal.fire({
+                title: `Vamos a editar a la jugadora con ID: ${playerId}`,
+                icon: 'success',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true
+            }).then(() => {
+                this.router.navigate(['/female/edit', playerId]);
+            });
+        } else {
+            Swal.fire({
+                title: `Vamos a editar al jugador con ID: ${playerId}`,
+                icon: 'success',
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1000,
+                timerProgressBar: true
+            }).then(() => {
+                this.router.navigate(['/players/edit', playerId]);
+            });
+        }
     } else {
-      console.warn('playerCard está indefinido durante el intento de edición');
+        console.warn('playerCard está indefinido durante el intento de edición');
     }
-  }
-
-  goBack() {
-    this.location.back();
-  }
+}
+goBack() {
+  Swal.fire({
+      title: 'Regresando a la página anterior',
+      icon: 'info', // Puedes usar 'warning', 'error', 'success', o 'info'
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 1000,
+      timerProgressBar: true
+  }).then(() => {
+      this.location.back(); // Retrocede a la página anterior después de mostrar el toast
+  });
+}
 }

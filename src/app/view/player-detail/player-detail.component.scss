@@ -20,14 +20,13 @@ img {
   width: 250px;
 }
 
+
 .card__info-container{
   display: flex;
   flex-direction: row;
   justify-content:center;
 }
-.card:hover {
-  transform: translateY(-10px);
-}
+
 
 .card__image-container {
   margin-bottom: 1rem;
