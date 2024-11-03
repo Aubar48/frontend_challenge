@@ -10,17 +10,19 @@ Este proyecto es una aplicación web para gestionar un listado de jugadores de F
 ### Backend
 - **Node.js**
 - **Express.js**
-- **Sequelize** (ORM para la base de datos)
-- **MySQL** (Base de datos)
-- **JSON Web Token (JWT)** para autenticación
-- **express-validator** para validaciones de entrada
+- **Sequelize** (ORM para la base de datos).
+- **MySQL** (Base de datos relacional).
+- **JSON Web Token (JWT)** Para autenticación.
+- **express-validator** Para validaciones de entrada.
+- **Swagger** Para la documentación de la api.
 
 ### Frontend
 - **Angular**
-- **Angular Material** (opcional para UI)
-- **Reactive Forms** para validaciones en el frontend
-- **Chart.js** para visualización de habilidades de los jugadores
+- **Angular Material** (opcional para UI).
+- **Reactive Forms** Para validaciones en el frontend.
+- **Chart.js** Para visualización de habilidades de los jugadores.
 - **SweetAlert 2** Un reemplazo personalizable y accesible para los cuadros emergentes.
+
 
 ## Funcionalidades
 
@@ -79,6 +81,9 @@ fifa_male_players, para la base de datos, ejecutar los tres scripts.
 
 5. **EndPoints Get, Post, Put, Deleted**:
 - IMPORTANTE CREAR USUARIO. USAR TOKEN AL LOGEARSE PARA USAR LAS DEMAS FUNCIONALIDADES 
+
+- *Swagger:* http://localhost:3000/api-docs/#/
+
 - *Post:* http://localhost:3000/auth/login
 - *Post:* http://localhost:3000/auth/register
 - *Post:* http://localhost:3000/auth/logout
